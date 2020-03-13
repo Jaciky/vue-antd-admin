@@ -1,0 +1,102 @@
+//清除浮动
+.clearfix() {
+  &:before,
+  &:after {
+    content: ' ';
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+//全屏定位
+.fxied-absolute() {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+// 顶部固定
+.fxied-top() {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+// 底部固定
+.fxied-bottom() {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+//水平居中
+.center-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+//定位上下左右居中
+.fxied-center() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//上下居中
+.vertical-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+//左右居中
+.horizontal-center() {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+//尺寸助手
+.size(@width, @height) {
+  width: @width;
+  height: @height;
+}
+
+// 单行文本溢出显示...  元素必须是 block 或 inline-block 级。
+.text-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 多行行文本溢出显示...  元素必须是 block 或 inline-block 级。
+.mult_line_ellipsis(@line: 2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: @line;
+  -webkit-box-orient: vertical;
+}
+
+//正方形
+.square(@size) {
+  .size(@size, @size);
+}
+
+// 绘制三角
+.triangle(@width, @height, @color, @direction) {
+}
+
+//公共flex布局
+.flex(@justify:right,@align:center,@flow:row) {
+  display: flex;
+  justify-content: @justify;
+  align-items: @align;
+  flex-flow: @flow;
+}
