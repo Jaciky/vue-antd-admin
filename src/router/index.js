@@ -8,6 +8,13 @@ import Layout from '_views/layout/Layout.vue'
 
 /* Router Modules */
 import system from './modules/system'
+import business from './modules/business'
+import components from './modules/components'
+import charts from './modules/charts'
+import table from './modules/table'
+import experience from './modules/experience'
+import error from './modules/error'
+import errorLog from './modules/errorLog'
 import icon from './modules/icon'
 import form from './modules/form'
 
@@ -31,7 +38,7 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/home',
+    redirect: '/dashboard',
     // alwaysShow: true,
     meta: {
       title: '首页',
@@ -39,12 +46,12 @@ export const constantRoutes = [
     },
     children: [
       {
-        path: '/home',
-        name: 'home',
-        component: () => import(/* webpackChunkName:"home"*/ '_views/home/Home.vue'),
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: () => import(/* webpackChunkName:"home"*/ '_views/home/Dashboard.vue'),
         meta: {
-          title: '首页',
-          icon: 'smile'
+          title: '仪表盘',
+          icon: ''
         }
       }
     ]
@@ -53,21 +60,6 @@ export const constantRoutes = [
     path: '/login',
     hidden: true,
     component: () => import('_views/login/Login.vue')
-  },
-  {
-    path: '/401',
-    hidden: true,
-    component: () => import('_views/error/401.vue')
-  },
-  {
-    path: '/404',
-    hidden: true,
-    component: () => import('_views/error/404.vue')
-  },
-  {
-    path: '/500',
-    hidden: true,
-    component: () => import('_views/error/500.vue')
   }
 ]
 
@@ -76,11 +68,18 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   system,
+  business,
+  components,
+  charts,
+  table,
+  experience,
+  error,
+  errorLog,
   icon,
   form,
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/error/404', hidden: true }
 ]
 
 const router = new VueRouter({

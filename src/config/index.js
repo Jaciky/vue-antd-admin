@@ -2,7 +2,7 @@ export default {
   /**
    * @description 配置显示在浏览器标签的title
    */
-  title: '筛查管理系统',
+  title: 'vue-antd-admin-template',
   /**
    * @description token在Cookie中存储的天数，默认7天
    */
