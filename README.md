@@ -1,4 +1,4 @@
-# vue-antd-admin-template
+# vue-antd-admin
 
 ## Project setup
 ```
