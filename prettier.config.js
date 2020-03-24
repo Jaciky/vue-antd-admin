@@ -1,7 +1,7 @@
 module.exports = {
   semi: false, // 句尾添加分号
   singleQuote: true, // 使用单引号代替双引号
-  printWidth: 180, // 单行代码的最大宽度
+  printWidth: 200, // 单行代码的最大宽度
   useTabs: false, // 缩进不使用tab，使用空格
   tabWidth: 2, // 缩进级别的空格数
   quoteProps: 'as-needed',

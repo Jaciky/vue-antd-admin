@@ -19,6 +19,7 @@ import icon from './modules/icon'
 // import form from './modules/form'
 import permission from './modules/permission'
 import nested from './modules/nested'
+import documentation from './modules/documentation'
 
 /**
  * hidden: true                   //当值为Truthy，该路由将会在导航栏中隐藏，如401、login等页面，或一些编辑页面/edit/1
@@ -60,8 +61,18 @@ export const constantRoutes = [
   },
   {
     path: '/login',
-    hidden: true,
-    component: () => import('_views/login/Login.vue')
+    component: () => import('_views/login/Login.vue'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/error/404'),
+    hidden: true
+  },
+  {
+    path: '/401',
+    component: () => import('@/views/error/401'),
+    hidden: true
   }
 ]
 
@@ -70,6 +81,7 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   // system,
+  documentation,
   permission,
   business,
   icon,
