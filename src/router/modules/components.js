@@ -5,7 +5,7 @@ export default {
   component: Layout,
   redirect: '/components/tinymce',
   meta: {
-    title: '组件',
+    title: '功能组件',
     icon: 'code'
   },
   children: [

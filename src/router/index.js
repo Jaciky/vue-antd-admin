@@ -7,16 +7,18 @@ Vue.use(VueRouter)
 import Layout from '_views/layout/Layout.vue'
 
 /* Router Modules */
-import system from './modules/system'
+// import system from './modules/system'
 import business from './modules/business'
 import components from './modules/components'
 import charts from './modules/charts'
 import table from './modules/table'
-import experience from './modules/experience'
+// import experience from './modules/experience'
 import error from './modules/error'
 import errorLog from './modules/errorLog'
 import icon from './modules/icon'
-import form from './modules/form'
+// import form from './modules/form'
+import permission from './modules/permission'
+import nested from './modules/nested'
 
 /**
  * hidden: true                   //当值为Truthy，该路由将会在导航栏中隐藏，如401、login等页面，或一些编辑页面/edit/1
@@ -67,16 +69,18 @@ export const constantRoutes = [
  * 动态路由
  */
 export const asyncRoutes = [
-  system,
+  // system,
+  permission,
   business,
+  icon,
   components,
   charts,
   table,
-  experience,
+  // experience,
   error,
   errorLog,
-  icon,
-  form,
+  nested,
+  // form,
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/error/404', hidden: true }
