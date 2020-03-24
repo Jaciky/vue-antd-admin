@@ -1,6 +1,6 @@
 <template>
   <div class="hmoe-content">
-    <p>欢迎使用！ {{ new Date().toLocaleString() }}</p>
+    <p>欢迎你使用！ {{ new Date().toLocaleString() }}</p>
   </div>
 </template>
 <script>

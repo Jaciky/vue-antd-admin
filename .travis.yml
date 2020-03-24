@@ -1,0 +1,30 @@
+language: node_js # 指定环境为 Node.js
+
+node_js: # node 版本
+  - lts/*
+
+cache:
+  directories:
+    - "node_modules"
+
+install:
+  - npm install # npm ci
+
+before_install:
+  - export TZ='Asia/Shanghai' # 设置时区 非必须
+
+script:
+  - set -e # 确保脚本抛出遇到的错误
+  - npm run build:prod # 执行命令
+
+notifications:
+  email: false
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: dist # 部署的文件夹文件
+  github_token: $GH_TOKEN # travis服务上的token变量
+  keep_history: true
+  on:
+    branch: master
