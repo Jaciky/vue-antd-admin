@@ -1,4 +1,5 @@
 import deboc from 'lodash/debounce'
+import { Modal } from 'ant-design-vue'
 
 // 节流
 export const debounce = (f, t = 1000, le = true, tr = false) => {
@@ -24,5 +25,18 @@ export { default as map } from 'lodash/map'
 export { default as sortBy } from 'lodash/sortBy'
 export { default as uniq } from 'lodash/uniq'
 export { default as sumBy } from 'lodash/sumBy'
-
 export { default as random } from 'lodash/random'
+
+export const confirm = (content = '是否继续？', opts = {}) => {
+  return new Promise((resolve, reject) => {
+    Modal.confirm({
+      title: '提示',
+      content: content,
+      okText: '确定',
+      cancelText: '取消',
+      onOk: () => resolve(),
+      onCancel: () => reject(),
+      ...opts
+    })
+  })
+}

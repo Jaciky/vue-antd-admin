@@ -1,4 +1,5 @@
 import { asyncRoutes, constantRoutes } from '@/router'
+import { cloneDeep } from '@/libs/global'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -43,7 +44,7 @@ const state = {
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
-    state.routes = constantRoutes.concat(routes)
+    state.routes = cloneDeep(constantRoutes.concat(routes))
   },
   SET_CACHED_ROUTES: (state, name) => {
     state.cachedRoutes.push(name)

@@ -1,14 +1,12 @@
 <template>
   <a-menu :theme="theme" mode="inline" :selected-keys="[activeMenu]" @click="routerGo">
-    <template v-for="route in $store.getters.routes">
-      <template v-if="!route.hidden">
-        <a-menu-item v-if="!route.children" :key="route.path">
-          <a-icon v-if="route.meta.icon" :type="route.meta.icon" />
-          <span>{{ item.meta.title }}</span>
-        </a-menu-item>
+    <template v-for="route in menus">
+      <a-menu-item v-if="!route.children" :key="route.path">
+        <a-icon v-if="route.meta.icon" :type="route.meta.icon" />
+        <span>{{ route.meta.title }}</span>
+      </a-menu-item>
 
-        <sidebar-item v-else :key="route.path" :item="route" />
-      </template>
+      <sidebar-item v-else :key="route.path" :item="route" />
     </template>
   </a-menu>
 </template>
@@ -32,6 +30,10 @@ export default {
     }
   },
   computed: {
+    menus() {
+      const munus = this.$store.getters.routes
+      return this.filterRoutes(munus)
+    },
     activeMenu() {
       const { meta, path } = this.$route
       // if set path, the sidebar will highlight the path you set
@@ -39,12 +41,33 @@ export default {
     }
   },
   created() {
-    console.log(this.$store.getters.routes)
+    console.log(this.menus)
   },
   methods: {
     routerGo({ key }) {
       console.log(key)
       this.$router.push({ path: key })
+    },
+    filterRoutes(routes = []) {
+      const res = []
+
+      routes.forEach(item => {
+        if (!item.hidden) {
+          const showingChildren = item.children?.filter(item => !item.hidden)
+
+          if (showingChildren?.length == 0) {
+            delete item.children
+            res.push(item)
+          } else if (showingChildren?.length == 1) {
+            !item.alwaysShow ? res.push(showingChildren[0]) : res.push(item)
+          } else {
+            res.push(item)
+            this.filterRoutes(item.children)
+          }
+        }
+      })
+
+      return res
     }
   }
 }

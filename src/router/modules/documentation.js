@@ -15,7 +15,7 @@ export default {
       meta: {
         cache: true,
         title: '文档',
-        icon: ''
+        icon: 'code'
       },
       component: () => import(/* webpackChunkName:"documentation"*/ '_views/documentation/index.vue')
     }

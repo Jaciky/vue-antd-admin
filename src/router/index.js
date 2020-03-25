@@ -20,6 +20,8 @@ import icon from './modules/icon'
 import permission from './modules/permission'
 import nested from './modules/nested'
 import documentation from './modules/documentation'
+import message from './modules/message'
+import list from './modules/list'
 
 /**
  * hidden: true                   //当值为Truthy，该路由将会在导航栏中隐藏，如401、login等页面，或一些编辑页面/edit/1
@@ -29,7 +31,7 @@ import documentation from './modules/documentation'
     roles: ['admin','editor']    //设置该路由访问权限，支持多个权限叠加，不设置此字段表示无权限限制
     title: 'title'               //设置该路由在导航栏中展示的名字
     icon: 'icon-class-name'      //设置该路由在导航栏中展示的图标
-    cache: true                  //当值为Truthy，<keep-alive>才会生效
+    cache: true                  //当值为Truthy，<keep-alive>才会生效(默认 false)
     activeMenu: '/example/list'  //当访问一个被隐藏菜单的路由时，此属性可指定菜单激活项
   }
  **/
@@ -42,11 +44,8 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    // alwaysShow: true,
-    meta: {
-      title: '首页',
-      icon: 'smile'
-    },
+    alwaysShow: true,
+    meta: { title: '首页', icon: 'smile' },
     children: [
       {
         path: '/dashboard',
@@ -88,10 +87,12 @@ export const asyncRoutes = [
   components,
   charts,
   table,
+  list,
   // experience,
   error,
   errorLog,
   nested,
+  message,
   // form,
 
   // 404 page must be placed at the end !!!

@@ -11,12 +11,12 @@ export default {
   children: [
     {
       path: '/nested/menu1',
-      name: 'menu1',
+      name: 'Menu1',
       meta: {
         title: '菜单1',
         icon: ''
       },
-      component: () => import(/* webpackChunkName:"form"*/ '_views/nested/Menu1.vue')
+      component: () => import(/* webpackChunkName:"nested"*/ '_views/nested/Menu1.vue')
     }
   ]
 }

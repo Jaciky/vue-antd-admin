@@ -1,6 +1,7 @@
 import router from './router'
 import store from './store'
 import { getToken, getPageTitle } from '@/libs/utils'
+import { Modal } from 'ant-design-vue'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -11,6 +12,9 @@ const whiteList = ['/login'] // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
   // start progress bar
   NProgress.start()
+
+  // 销毁所有提示框
+  Modal.destroyAll()
 
   // 设置网页标题
   document.title = getPageTitle(to.meta.title)
