@@ -20,7 +20,7 @@ import icon from './modules/icon'
 import permission from './modules/permission'
 import nested from './modules/nested'
 import documentation from './modules/documentation'
-import message from './modules/message'
+import feedback from './modules/feedback'
 import list from './modules/list'
 
 /**
@@ -92,7 +92,7 @@ export const asyncRoutes = [
   error,
   errorLog,
   nested,
-  message,
+  feedback,
   // form,
 
   // 404 page must be placed at the end !!!

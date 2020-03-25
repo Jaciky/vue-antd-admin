@@ -1,22 +1,22 @@
 import Layout from '_views/layout/Layout.vue'
 
 export default {
-  path: '/message',
+  path: '/feedback',
   component: Layout,
-  redirect: '/message/index',
+  redirect: '/feedback/index',
   meta: {
     title: '消息反馈',
     icon: 'code'
   },
   children: [
     {
-      path: '/message/index',
-      name: 'Message',
+      path: '/feedback/index',
+      name: 'Feedback',
       meta: {
         title: '消息反馈',
-        icon: ''
+        icon: 'coffee'
       },
-      component: () => import(/* webpackChunkName:"message"*/ '_views/message/index.vue')
+      component: () => import(/* webpackChunkName:"feedback"*/ '_views/feedback/index.vue')
     }
   ]
 }
