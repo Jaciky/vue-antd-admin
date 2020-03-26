@@ -21,7 +21,7 @@
         <li>顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。</li>
       </ul>
       <div class="btns">
-        <a-button @click="success">Success</a-button>
+        <a-button v-auth="[admin]" @click="success">Success</a-button>
         <a-button @click="error">Error</a-button>
         <a-button @click="warning">Warning</a-button>
       </div>

@@ -17,41 +17,39 @@ router.beforeEach(async (to, from, next) => {
   Modal.destroyAll()
 
   // 设置网页标题
-  document.title = getPageTitle(to.meta.title)
+  document.title = getPageTitle(to.meta?.title)
 
   // 判断用户是否已登录
   const hasToken = getToken()
+  // 判断是否拉取用户信息
+  const hasRoles = store.getters.roles?.length
 
   if (hasToken) {
-    if (to.path === '/login') {
-      next({ path: '/' })
-      NProgress.done()
-    } else {
-      // 设置缓存路由
-      store.dispatch('auth/updateCachedRoutes', to)
-
-      if (store.getters.roles?.length) {
-        next()
+    if (hasRoles) {
+      if (to.path === '/login') {
+        next({ path: '/' })
+        NProgress.done()
       } else {
-        try {
-          // 获取用户角色信息
-          await store.dispatch('user/getInfo')
+        next()
+      }
+    } else {
+      try {
+        // 获取用户角色信息
+        await store.dispatch('user/getInfo')
 
-          // 根据用户角色生成可访问路由
-          await store.dispatch('auth/generateRoutes')
+        // 根据用户角色生成可访问路由
+        await store.dispatch('auth/generateRoutes')
 
-          // 动态添加可访问路由
-          router.addRoutes(store.state.auth.addRoutes)
+        // 动态添加可访问路由
+        router.addRoutes(store.state.auth.addRoutes)
 
-          // hack method to ensure that addRoutes is complete
-          // set the replace: true, so the navigation will not leave a history record
-          next({ ...to, replace: true })
-        } catch (error) {
-          // 清除登录信息跳转至登录页
-          await store.dispatch('user/clearInfo')
-          next({ path: '/login', query: { redirect: to.path, ...to.query }, replace: true })
-          NProgress.done()
-        }
+        // 设置 replace: true， 防止用户信息更新后权限变更，而进入的是404
+        next({ ...to, replace: true })
+      } catch (error) {
+        // 清除登录信息跳转至登录页
+        await store.dispatch('user/clearInfo')
+        next({ path: '/login', query: { redirect: to.path, ...to.query }, replace: true })
+        NProgress.done()
       }
     }
   } else {
