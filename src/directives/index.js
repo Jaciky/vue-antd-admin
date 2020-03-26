@@ -1,6 +1,6 @@
 import auth from './auth.js' // 按钮级别鉴权
 
-const install = function(vm) {
+function install(vm) {
   vm.directive('auth', auth)
 }
 
