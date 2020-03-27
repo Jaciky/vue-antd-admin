@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>动态表单</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'StepForm',
   components: {},
   filters: {},
   mixins: [],

@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>个人设置</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'Account',
   components: {},
   filters: {},
   mixins: [],

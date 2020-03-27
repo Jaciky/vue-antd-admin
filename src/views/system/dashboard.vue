@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>主控台</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'Dashboard',
   components: {},
   filters: {},
   mixins: [],

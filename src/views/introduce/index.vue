@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    系统介绍
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'Introduce',
   components: {},
   filters: {},
   mixins: [],

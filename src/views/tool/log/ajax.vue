@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>ajax</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'LogAjax',
   components: {},
   filters: {},
   mixins: [],

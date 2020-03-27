@@ -7,21 +7,17 @@ Vue.use(VueRouter)
 import Layout from '_views/layout/Layout.vue'
 
 /* Router Modules */
-// import system from './modules/system'
-import business from './modules/business'
-import components from './modules/components'
+import system from './modules/system'
 import charts from './modules/charts'
-import table from './modules/table'
-// import experience from './modules/experience'
 import error from './modules/error'
-import errorLog from './modules/errorLog'
 import icon from './modules/icon'
-// import form from './modules/form'
+import form from './modules/form'
 import permission from './modules/permission'
-import nested from './modules/nested'
-import documentation from './modules/documentation'
 import feedback from './modules/feedback'
 import list from './modules/list'
+import editor from './modules/editor'
+import tool from './modules/tool'
+import profile from './modules/profile'
 
 /**
  * hidden: true                   //当值为Truthy，该路由将会在导航栏中隐藏，如401、login等页面，或一些编辑页面/edit/1
@@ -43,18 +39,14 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
-    alwaysShow: true,
-    meta: { title: '首页', icon: 'smile' },
+    redirect: '/introduce',
+    meta: { title: '介绍', icon: 'smile' },
     children: [
       {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: () => import(/* webpackChunkName:"home"*/ '_views/home/Dashboard.vue'),
-        meta: {
-          title: '仪表盘',
-          icon: ''
-        }
+        path: '/introduce',
+        name: 'introduce',
+        component: () => import(/* webpackChunkName:"introduce"*/ '_views/introduce/index.vue'),
+        meta: { title: '介绍', icon: 'smile' }
       }
     ]
   },
@@ -72,6 +64,11 @@ export const constantRoutes = [
     path: '/401',
     component: () => import('@/views/error/401'),
     hidden: true
+  },
+  {
+    path: '/500',
+    component: () => import('@/views/error/500'),
+    hidden: true
   }
 ]
 
@@ -79,21 +76,17 @@ export const constantRoutes = [
  * 动态路由
  */
 export const asyncRoutes = [
-  // system,
-  documentation,
-  permission,
-  business,
-  icon,
-  components,
-  charts,
-  table,
+  system,
+  form,
   list,
-  // experience,
+  permission,
+  profile,
+  icon,
+  charts,
   error,
-  errorLog,
-  nested,
   feedback,
-  // form,
+  editor,
+  tool,
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/error/404', hidden: true }

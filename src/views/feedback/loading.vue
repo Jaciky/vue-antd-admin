@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    加载中
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'FeedbackLoading',
   components: {},
   filters: {},
   mixins: [],

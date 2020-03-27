@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>复杂详情</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'ProfileComplex',
   components: {},
   filters: {},
   mixins: [],

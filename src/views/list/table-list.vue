@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>查询表格</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'TableList',
   components: {},
   filters: {},
   mixins: [],

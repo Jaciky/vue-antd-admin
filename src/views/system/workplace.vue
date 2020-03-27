@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>工作台</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'Workplace',
   components: {},
   filters: {},
   mixins: [],

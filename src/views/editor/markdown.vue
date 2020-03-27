@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>markdown编辑器</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'Markdown',
   components: {},
   filters: {},
   mixins: [],

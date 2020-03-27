@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>本地搜索</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'LocalSearch',
   components: {},
   filters: {},
   mixins: [],

@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>远程搜索</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'RemoteSearch',
   components: {},
   filters: {},
   mixins: [],

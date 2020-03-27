@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    地图
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'Map',
   components: {},
   filters: {},
   mixins: [],

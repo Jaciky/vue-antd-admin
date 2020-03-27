@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>结果页-失败</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'ResultFail',
   components: {},
   filters: {},
   mixins: [],

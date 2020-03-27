@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>卡片列表</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'CardList',
   components: {},
   filters: {},
   mixins: [],

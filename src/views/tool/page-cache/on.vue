@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>开启页面缓存</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'CacheOn',
   components: {},
   filters: {},
   mixins: [],

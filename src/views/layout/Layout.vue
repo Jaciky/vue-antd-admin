@@ -30,7 +30,7 @@ import Header from './Header'
 import Content from './Content'
 import Footer from './Footer'
 import Sidebar from './Sidebar'
-// import Logo from './Logo'
+// import Logo from './logo'
 
 export default {
   name: 'Layout',

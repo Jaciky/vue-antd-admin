@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>console</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'LogConsole',
   components: {},
   filters: {},
   mixins: [],

@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>表单详情</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'DetailForm',
   components: {},
   filters: {},
   mixins: [],

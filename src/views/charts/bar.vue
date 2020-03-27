@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    柱状图
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'Bar',
   components: {},
   filters: {},
   mixins: [],

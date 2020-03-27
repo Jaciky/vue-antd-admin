@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>富文本编辑器</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'Tinymce',
   components: {},
   filters: {},
   mixins: [],

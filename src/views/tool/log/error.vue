@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>捕获错误信息</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'LogError',
   components: {},
   filters: {},
   mixins: [],

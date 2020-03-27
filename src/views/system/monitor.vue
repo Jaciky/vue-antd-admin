@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>监控页</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'Monitor',
   components: {},
   filters: {},
   mixins: [],

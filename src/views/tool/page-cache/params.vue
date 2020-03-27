@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>带参路由缓存</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'CacheParams',
   components: {},
   filters: {},
   mixins: [],

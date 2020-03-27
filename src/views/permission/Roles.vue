@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: 'Roles',
+  name: 'PermissionRoles',
   components: {},
   filters: {},
   mixins: [],
@@ -13,12 +13,7 @@ export default {
   computed: {},
   watch: {},
   created() {},
-  methods: {
-    handleChange(value) {
-      console.log('value: ', value);
-      console.log(`selected ${value}`)
-    }
-  }
+  methods: {}
 }
 </script>
 <style lang="less" scoped></style>

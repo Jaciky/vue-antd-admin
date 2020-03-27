@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    <p>记录日志内容</p>
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'LogRecord',
   components: {},
   filters: {},
   mixins: [],

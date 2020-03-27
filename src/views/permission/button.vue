@@ -1,11 +1,9 @@
 <template>
-  <div>
-    折线图
-  </div>
+  <div>按钮级别权限</div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'PermissionButton',
   components: {},
   filters: {},
   mixins: [],

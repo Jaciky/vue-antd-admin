@@ -1,11 +1,11 @@
 <template>
   <div>
-    折线图
+    页面权限
   </div>
 </template>
 <script>
 export default {
-  name: 'Line',
+  name: 'PermissionPage',
   components: {},
   filters: {},
   mixins: [],
