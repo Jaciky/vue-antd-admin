@@ -17,7 +17,6 @@ module.exports = {
     'vue/v-on-style': ['error', 'shorthand'],
     'vue/this-in-template': ['error', 'never'],
     'vue/attribute-hyphenation': ['error', 'always'],
-    'vue/max-attributes-per-line': 'off',
     // 'vue/html-self-closing': 'error',
     'vue/order-in-components': 'error',
     'vue/attributes-order': 'error',

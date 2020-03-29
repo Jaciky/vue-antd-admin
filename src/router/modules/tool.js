@@ -64,7 +64,6 @@ export default {
         },
         {
           path: '/tool/page-cache/params',
-          name: 'CacheParams',
           component: () => import(/* webpackChunkName:"tool_cache"*/ '_views/tool/page-cache/params.vue'),
           meta: { title: '带参路由缓存2' }
         }

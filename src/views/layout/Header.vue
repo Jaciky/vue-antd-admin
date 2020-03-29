@@ -1,27 +1,76 @@
 <template>
-  <div class="navbar">
-    <a-icon class="trigger" :type="sidebar ? 'menu-unfold' : 'menu-fold'" @click="$store.dispatch('app/toggleSideBar')" />
-
-    <div class="user-info" style="">
-      <a-dropdown>
-        <span>
-          <span>{{ $store.getters.userName }}&nbsp;</span>
-          <a-icon type="down" />
+  <div class="header-navbar">
+    <div class="header-navbar-left">
+      <a-tooltip :title="sidebar ? '展开侧边栏' : '收起侧边栏'">
+        <span class="header-navbar-trigger" @click="$store.dispatch('app/toggleSideBar')">
+          <a-icon :type="sidebar ? 'menu-unfold' : 'menu-fold'" style="font-size:18px;" />
         </span>
-        <a-menu slot="overlay" @click="onClick">
-          <a-menu-item key="1">登出</a-menu-item>
-        </a-menu>
-      </a-dropdown>
+      </a-tooltip>
     </div>
+
+    <div class="header-navbar-right">
+      <a-tooltip title="全屏">
+        <span class="header-navbar-trigger">
+          <a-icon type="fullscreen" />
+        </span>
+      </a-tooltip>
+
+      <a-tooltip title="调试">
+        <span class="header-navbar-trigger">
+          <a-icon type="bug" />
+        </span>
+      </a-tooltip>
+
+      <span class="header-navbar-trigger">
+        <a-dropdown placement="bottomCenter">
+          <span class="header-navbar-user-info">
+            <a-avatar class="header-navbar-user-avator" :size="24" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            <span class="header-navbar-user-name">{{ $store.getters.userName }}</span>
+          </span>
+          <a-menu slot="overlay" @click="onClick">
+            <a-menu-item key="1">
+              <a-icon type="smile" />
+              个人中心
+            </a-menu-item>
+
+            <a-menu-item key="2">
+              <a-icon type="setting" />
+              设置
+            </a-menu-item>
+            <a-menu-item key="2">
+              <a-icon type="github" />
+              Github
+            </a-menu-item>
+            <a-menu-item key="2">
+              <a-icon type="code" />
+              查看文档
+            </a-menu-item>
+            <a-menu-item key="3">
+              <a-icon type="logout" />
+              退出
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
+      </span>
+
+      <span class="header-navbar-trigger" @click="showDrawer">
+        <a-icon type="more" />
+      </span>
+    </div>
+
+    <Setting class="header-navbar-trigger" :visible.sync="visible" />
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import Setting from './Setting'
 
 export default {
-  components: {},
+  components: { Setting },
   data() {
-    return {}
+    return {
+      visible: false
+    }
   },
   computed: {
     ...mapGetters(['sidebar'])
@@ -31,30 +80,52 @@ export default {
       console.log(`Click on item ${key}`)
       await this.$store.dispatch('user/logout')
       this.$router.push({ path: '/login' })
+    },
+    showDrawer() {
+      this.visible = true
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.navbar {
+.header-navbar {
   position: relative;
-  height: 100%;
+  height: @header-height;
 
-  .trigger {
-    font-size: 18px;
-    line-height: @header-height;
-    padding: 0 8px;
+  .header-navbar-left,
+  .header-navbar-right {
+    height: @header-height;
+  }
+
+  .header-navbar-trigger {
+    display: inline-block;
+    height: @header-height;
+    padding: 0 12px;
+    text-align: center;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.2s ease-in-out;
+
     &:hover {
-      color: #1890ff;
+      background-color: #f8f8f9;
     }
   }
 
-  .user-info {
+  .header-navbar-left {
+    float: left;
+  }
+
+  .header-navbar-right {
     float: right;
-    height: @header-height;
+
+    .header-navbar-user-info {
+      display: inline-block;
+      height: @header-height;
+
+      .header-navbar-user-name {
+        margin-left: 12px;
+      }
+    }
   }
 }
 </style>
