@@ -1,11 +1,21 @@
 <template>
   <div class="header-navbar">
     <div class="header-navbar-left">
-      <a-tooltip :title="sidebar ? '展开侧边栏' : '收起侧边栏'">
-        <span class="header-navbar-trigger" @click="$store.dispatch('app/toggleSideBar')">
-          <a-icon :type="sidebar ? 'menu-unfold' : 'menu-fold'" style="font-size:18px;" />
+      <span class="header-navbar-trigger" @click="$store.dispatch('layout/toggleSideBar')">
+        <a-icon :type="sidebar ? 'menu-unfold' : 'menu-fold'" />
+      </span>
+
+      <a-tooltip title="刷新当前页">
+        <span class="header-navbar-trigger">
+          <a-icon type="redo" />
         </span>
       </a-tooltip>
+
+      <a-breadcrumb>
+        <a-breadcrumb-item>首页</a-breadcrumb-item>
+        <a-breadcrumb-item><a href="">表单页面</a></a-breadcrumb-item>
+        <a-breadcrumb-item><a href="">动态表单</a></a-breadcrumb-item>
+      </a-breadcrumb>
     </div>
 
     <div class="header-navbar-right">
@@ -20,6 +30,12 @@
           <a-icon type="bug" />
         </span>
       </a-tooltip>
+
+      <span class="header-navbar-trigger">
+        <a-badge dot>
+          <a-icon type="mail" />
+        </a-badge>
+      </span>
 
       <span class="header-navbar-trigger">
         <a-dropdown placement="bottomCenter">
@@ -37,15 +53,15 @@
               <a-icon type="setting" />
               设置
             </a-menu-item>
-            <a-menu-item key="2">
+            <a-menu-item key="3">
               <a-icon type="github" />
               Github
             </a-menu-item>
-            <a-menu-item key="2">
+            <a-menu-item key="4">
               <a-icon type="code" />
               查看文档
             </a-menu-item>
-            <a-menu-item key="3">
+            <a-menu-item key="5">
               <a-icon type="logout" />
               退出
             </a-menu-item>
@@ -98,6 +114,13 @@ export default {
     height: @header-height;
   }
 
+  .anticon {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
   .header-navbar-trigger {
     display: inline-block;
     height: @header-height;
@@ -113,6 +136,11 @@ export default {
 
   .header-navbar-left {
     float: left;
+
+    .ant-breadcrumb {
+      display: inline-block;
+      line-height: @header-height;
+    }
   }
 
   .header-navbar-right {
@@ -120,7 +148,7 @@ export default {
 
     .header-navbar-user-info {
       display: inline-block;
-      height: @header-height;
+      line-height: @header-height;
 
       .header-navbar-user-name {
         margin-left: 12px;

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import getters from './getters'
-import app from './modules/app'
+import layout from './modules/layout'
 import auth from './modules/auth'
 import user from './modules/user'
 
@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   state: {},
   getters,
   modules: {
-    app,
+    layout,
     auth,
     user
   }

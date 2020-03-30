@@ -1,5 +1,5 @@
 <template>
-  <a-menu :theme="theme" mode="inline" :selected-keys="[activeMenu]" @click="routerGo">
+  <a-menu class="layout-sidebar-menu a-scrollbar-hide" :theme="theme" mode="inline" :selected-keys="[activeMenu]" @click="routerGo">
     <template v-for="route in menus">
       <a-menu-item v-if="!route.children" :key="route.path">
         <a-icon v-if="route.meta.icon" :type="route.meta.icon" />
@@ -72,3 +72,10 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.layout-sidebar-menu {
+  height: calc(~'100vh - @{header-height}');
+  overflow-y: auto;
+}
+</style>

@@ -1,5 +1,5 @@
 export default {
-  sidebar: state => state.app.sidebar,
+  sidebar: state => state.layout.sidebar,
   token: state => state.user.token,
   roles: state => state.user.roles,
   userId: state => state.user.userId,

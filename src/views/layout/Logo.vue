@@ -15,6 +15,7 @@
 
 <script>
 import config from '@/config'
+
 export default {
   name: 'SidebarLogo',
   props: {
@@ -26,10 +27,57 @@ export default {
   data() {
     return {
       title: config.title,
-      logo: require('../../../../assets/images/logo.png')
+      logo: require('@/assets/images/logo.png')
     }
   }
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.logo-enter-active {
+  transition: opacity 1.5s;
+}
+
+.logo-enter,
+.logo-leave-to {
+  opacity: 0;
+}
+
+.sidebar-logo-container {
+  height: @header-height;
+  line-height: @header-height;
+  background: transparent;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid #101117;
+
+  & .sidebar-logo-link {
+    height: 100%;
+    width: 100%;
+
+    & .sidebar-logo {
+      width: 38px;
+      /*height: 32px;*/
+      vertical-align: middle;
+      margin-right: 12px;
+    }
+
+    & .sidebar-title {
+      display: inline-block;
+      margin: 0;
+      color: #fff;
+      font-weight: 600;
+      line-height: 50px;
+      font-size: 18px;
+      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+      vertical-align: middle;
+    }
+  }
+
+  &.collapse {
+    .sidebar-logo {
+      margin-right: 0px;
+    }
+  }
+}
+</style>

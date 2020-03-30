@@ -1,5 +1,8 @@
 const state = {
-  sidebar: sessionStorage.sidebarStatus ? !+sessionStorage.sidebarStatus : false
+  sidebar: sessionStorage.sidebarStatus ? !+sessionStorage.sidebarStatus : false,
+  sidebarWidth: 256,
+  collapsedWidth: 80,
+  headerFix: false // 固定顶部导航栏
 }
 
 const mutations = {

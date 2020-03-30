@@ -1,20 +1,33 @@
 .search-area {
-    margin-bottom: 15px;
-    padding-top: 20px;
-    background: #fff;
+  margin-bottom: 15px;
+  padding-top: 20px;
+  background: #fff;
 }
 
 .content-list {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .page-area {
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background: #fff;
-    padding: 10px 20px;
-    text-align: right;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  padding: 10px 20px;
+  text-align: right;
+}
+
+// 隐藏滚动条
+.a-scrollbar-hide {
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #e8eaec;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 }
