@@ -6,16 +6,16 @@
       <sidebar :theme="navTheme" :collapsed="layout.sidebar" />
     </a-layout-sider>
 
-    <a-layout>
+    <a-layout class="layout-inside" :style="layoutInsideStyle">
       <!-- 顶部菜单 -->
       <a-layout-header :class="['layout-header', { 'header-fix': layout.headerFix }]" :style="layoutHeaderStyle">
         <Header />
       </a-layout-header>
 
       <!-- 页面主体 -->
-      <a-layout-content :class="['layout-content', { 'layout-content-with-fix-header': layout.headerFix, 'layout-content-with-fix--tags-nav': layout.tagsNavFix }]" :style="layoutContentStyle">
-        <TagsNav v-if="layout.tagsNavShow" />
-        <Content />
+      <a-layout-content class="layout-content" :style="layoutContentStyle">
+        <TagsNav v-if="layout.tagsNavShow" :style="layoutTagsNavStyle" />
+        <Content class="layout-content-main" :style="layoutContentMainStyle" />
       </a-layout-content>
 
       <!-- 页面底部 -->
@@ -66,13 +66,38 @@ export default {
     layoutHeaderStyle() {
       let { sidebar, headerFix } = this.layout
       return {
-        left: headerFix && sidebar ? '80px' : '256px'
+        left: headerFix ? (sidebar ? '80px' : '256px') : 0
       }
     },
-    layoutContentStyle() {
+    layoutInsideStyle() {
       let { sidebar, sidebarFix } = this.layout
       return {
         paddingLeft: sidebarFix ? (sidebar ? '80px' : '256px') : '0'
+      }
+    },
+    layoutContentStyle() {
+      let { headerFix, headerHeight } = this.layout
+      return {
+        paddingTop: headerFix ? `${headerHeight}px` : 0
+      }
+    },
+    layoutTagsNavStyle() {
+      let { sidebar, tagsNavFix, collapsedWidth, sidebarWidth } = this.layout
+      if (tagsNavFix) {
+        return {
+          position: 'fixed',
+          zIndex: 3,
+          // top: 0,
+          width: `calc(100% - ${sidebar ? collapsedWidth : sidebarWidth}px)`
+        }
+      } else {
+        return { width: '100%' }
+      }
+    },
+    layoutContentMainStyle() {
+      let { tagsNavFix, tagsNavShow } = this.layout
+      return {
+        marginTop: tagsNavFix && tagsNavShow ? '44px' : '0'
       }
     },
     layoutFooterStyle() {
@@ -84,18 +109,15 @@ export default {
 
 <style lang="less" scoped>
 .layout-sidebar {
-  position: relative;
-  // height: 100vh;
   min-height: 100vh;
   width: @sider-width;
-  z-index: 13;
 }
 .layout-sidebar-fix {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 13;
 }
-
 .layout-header {
   display: block;
   background: @header-color;
@@ -106,34 +128,26 @@ export default {
   transition: all 0.2s ease-in-out;
   z-index: 3;
 }
-
 .header-fix {
   position: fixed;
   top: 0;
   right: 0;
-  // left: 256px;
   z-index: 11;
 }
-
+.layout-inside {
+  min-height: 100vh;
+  transition: all 0.2s ease-in-out;
+}
 .layout-content {
-  // height: calc(~'100vh - @{header-height}'); /* $header-height 导航栏高度  */
   background: #f0f2f5;
   overflow: auto;
   transition: all 0.2s ease-in-out;
 }
-
-// 固定头部导航
-.layout-content-with-fix-header {
-  padding-top: @header-height;
+.layout-content-main {
+  position: relative;
+  margin: 20px;
+  background: #fff;
 }
-
-// 固定快速导航栏
-.layout-content-with-fix--tags-nav {
-  /deep/.app-main {
-    margin-top: 44px;
-  }
-}
-
 .layout-footer {
   text-align: center;
 }

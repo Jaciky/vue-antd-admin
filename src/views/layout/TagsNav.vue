@@ -1,5 +1,5 @@
 <template>
-  <div :class="['layout-tags-nav', { 'tags-nav-fix': layout.tagsNavFix }]" :style="layoutTagsNavStyle">
+  <div class="layout-tags-nav">
     <div class="tags-nav-main">
       <a-tabs v-model="activeKey" type="editable-card" hide-add :animated="false" size="small" :tab-bar-gutter="10" @edit="onEdit">
         <a-tab-pane v-for="pane in panes" :key="pane.key" :tab="pane.title" :closable="pane.closable"></a-tab-pane>
@@ -64,7 +64,7 @@ export default {
   },
   watch: {
     $route() {
-      this.addTagsNav()
+      // this.addTagsNav()
     }
   },
   created() {
@@ -115,11 +115,6 @@ export default {
   width: 100%;
   background-color: #f5f7f9;
   transition: all 0.2s ease-in-out;
-}
-
-.tags-nav-fix {
-  position: fixed;
-  z-index: 3;
 }
 
 .tags-nav-main {

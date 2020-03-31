@@ -3,6 +3,7 @@ const state = {
   sidebarWidth: 256,
   collapsedWidth: 80,
   sidebarFix: true, // 固定侧边栏
+  headerHeight: 64,
   headerFix: true, // 固定顶部导航栏
   tagsNavFix: true, // 固定快速导航栏
   tagsNavShow: true // 显示多页签
