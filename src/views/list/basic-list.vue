@@ -1,5 +1,5 @@
 <template>
-  <a-table :columns="columns" :data-source="data" :scroll="{ x: true, y: 300 }">
+  <a-table :columns="columns" :data-source="data">
     <a slot="action" slot-scope="text">action</a>
   </a-table>
 </template>

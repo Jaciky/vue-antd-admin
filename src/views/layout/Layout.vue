@@ -1,7 +1,7 @@
 <template>
   <a-layout>
     <!-- 侧边导航 -->
-    <a-layout-sider class="layout-sidebar" v-bind="siderOptiions">
+    <a-layout-sider :class="['layout-sidebar', { 'layout-sidebar-fix': layout.sidebarFix }]" v-bind="siderOptiions">
       <Logo :collapse="layout.sidebar" />
       <sidebar :theme="navTheme" :collapsed="layout.sidebar" />
     </a-layout-sider>
@@ -13,7 +13,8 @@
       </a-layout-header>
 
       <!-- 页面主体 -->
-      <a-layout-content :class="['layout-content', { 'fix-with-header': layout.headerFix }]" :style="layoutContentStyle">
+      <a-layout-content :class="['layout-content', { 'layout-content-with-fix-header': layout.headerFix, 'layout-content-with-fix--tags-nav': layout.tagsNavFix }]" :style="layoutContentStyle">
+        <TagsNav v-if="layout.tagsNavShow" />
         <Content />
       </a-layout-content>
 
@@ -28,6 +29,7 @@
 <script>
 import Header from './Header'
 import Content from './Content'
+import TagsNav from './TagsNav'
 import Footer from './Footer'
 import Sidebar from './Sidebar'
 import Logo from './Logo'
@@ -37,6 +39,7 @@ export default {
   components: {
     Header,
     Content,
+    TagsNav,
     Footer,
     Sidebar,
     Logo
@@ -67,7 +70,10 @@ export default {
       }
     },
     layoutContentStyle() {
-      return {}
+      let { sidebar, sidebarFix } = this.layout
+      return {
+        paddingLeft: sidebarFix ? (sidebar ? '80px' : '256px') : '0'
+      }
     },
     layoutFooterStyle() {
       return {}
@@ -78,9 +84,18 @@ export default {
 
 <style lang="less" scoped>
 .layout-sidebar {
-  height: 100vh;
+  position: relative;
+  // height: 100vh;
+  min-height: 100vh;
   width: @sider-width;
+  z-index: 13;
 }
+.layout-sidebar-fix {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 .layout-header {
   display: block;
   background: @header-color;
@@ -104,10 +119,19 @@ export default {
   // height: calc(~'100vh - @{header-height}'); /* $header-height 导航栏高度  */
   background: #f0f2f5;
   overflow: auto;
+  transition: all 0.2s ease-in-out;
 }
 
-.fix-with-header {
+// 固定头部导航
+.layout-content-with-fix-header {
   padding-top: @header-height;
+}
+
+// 固定快速导航栏
+.layout-content-with-fix--tags-nav {
+  /deep/.app-main {
+    margin-top: 44px;
+  }
 }
 
 .layout-footer {
