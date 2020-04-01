@@ -15,15 +15,21 @@
       </span>
     </div>
     <div class="setting-item">
-      <span class="setting-item-desc">下滑时隐藏顶栏</span>
+      <span class="setting-item-desc">
+        下滑时隐藏顶栏
+        <Help title="需开启固定顶栏" />
+      </span>
       <span class="setting-item-action">
-        <a-switch size="small" :checked="sidebarFix" @change="TOGGLE_FIX('sidebarFix')" />
+        <a-switch size="small" :checked="headerFadeOnScroll" :disabled="!headerFix" @change="TOGGLE_FIX('headerFadeOnScroll')" />
       </span>
     </div>
     <div class="setting-item">
-      <span class="setting-item-desc">置顶顶栏</span>
+      <span class="setting-item-desc">
+        置顶顶栏
+        <Help title="需开启固定顶栏" />
+      </span>
       <span class="setting-item-action">
-        <a-switch size="small" :checked="sidebarFix" @change="TOGGLE_FIX('sidebarFix')" />
+        <a-switch size="small" :checked="headerStick" :disabled="!headerFix" @change="TOGGLE_FIX('headerStick')" />
       </span>
     </div>
     <div class="setting-item">
@@ -35,13 +41,13 @@
     <div class="setting-item">
       <span class="setting-item-desc">显示折叠侧边栏按钮</span>
       <span class="setting-item-action">
-        <a-switch size="small" :checked="sidebarFix" @change="TOGGLE_FIX('sidebarFix')" />
+        <a-switch size="small" :checked="sidebarFoldTrigger" @change="TOGGLE_FIX('sidebarFoldTrigger')" />
       </span>
     </div>
     <div class="setting-item">
       <span class="setting-item-desc">显示全局面包屑导航</span>
       <span class="setting-item-action">
-        <a-switch size="small" :checked="sidebarFix" @change="TOGGLE_FIX('sidebarFix')" />
+        <a-switch size="small" :checked="breadcrumbShow" @change="TOGGLE_FIX('breadcrumbShow')" />
       </span>
     </div>
     <div class="setting-item">
@@ -53,7 +59,7 @@
     <div class="setting-item">
       <span class="setting-item-desc">显示重载页面按钮</span>
       <span class="setting-item-action">
-        <a-switch size="small" :checked="sidebarFix" @change="TOGGLE_FIX('sidebarFix')" />
+        <a-switch size="small" :checked="reloadTrigger" @change="TOGGLE_FIX('reloadTrigger')" />
       </span>
     </div>
 
@@ -76,6 +82,14 @@
         <a-switch size="small" :checked="tagsNavFix" @change="TOGGLE_FIX('tagsNavFix')" />
       </span>
     </div>
+
+    <a-alert :show-icon="false" banner style="padding: 16px;" class="alert-setting-desc">
+      <template slot="message">
+        该功能主要实时预览各种布局效果，更多完整配置在
+        <strong>setting.js</strong>
+        中设置。建议在生产环境关闭该布局预览功能。
+      </template>
+    </a-alert>
   </a-drawer>
 </template>
 
@@ -95,7 +109,7 @@ export default {
     return {}
   },
   computed: {
-    ...mapState('layout', ['sidebarFix', 'headerFix', 'tagsNavFix', 'tagsNavShow'])
+    ...mapState('layout', ['sidebarFix', 'headerFix', 'tagsNavFix', 'tagsNavShow', 'headerFadeOnScroll', 'sidebarFoldTrigger', 'reloadTrigger', 'breadcrumbShow', 'headerStick'])
   },
   methods: {
     ...mapMutations('layout', ['TOGGLE_FIX']),
@@ -123,6 +137,17 @@ export default {
   }
   .setting-item-action {
     flex: 0 0 auto;
+  }
+}
+.alert-setting-desc {
+  border-radius: 4px;
+  margin-bottom: 10px;
+
+  /deep/.ant-alert-message {
+    font-size: 14px;
+    color: #515a6e;
+    line-height: 21px;
+    text-align: justify;
   }
 }
 </style>

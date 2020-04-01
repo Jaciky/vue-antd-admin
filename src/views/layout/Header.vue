@@ -1,16 +1,17 @@
 <template>
   <div class="header-navbar">
-    <span class="header-navbar-trigger" @click="$store.dispatch('layout/toggleSideBar')">
+    <Logo v-if="headerStick" />
+    <span v-if="sidebarFoldTrigger" class="header-navbar-trigger" @click="$store.dispatch('layout/toggleSideBar')">
       <a-icon :type="sidebar ? 'menu-unfold' : 'menu-fold'" />
     </span>
 
-    <a-tooltip title="刷新当前页">
+    <a-tooltip v-if="reloadTrigger" title="刷新当前页">
       <span class="header-navbar-trigger">
         <a-icon type="redo" />
       </span>
     </a-tooltip>
 
-    <a-breadcrumb>
+    <a-breadcrumb v-if="breadcrumbShow">
       <a-breadcrumb-item>首页</a-breadcrumb-item>
       <a-breadcrumb-item><a href="">表单页面</a></a-breadcrumb-item>
       <a-breadcrumb-item><a href="">动态表单</a></a-breadcrumb-item>
@@ -75,17 +76,19 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Setting from './Setting'
+import Logo from './Logo'
 
 export default {
-  components: { Setting },
+  components: { Setting, Logo },
   data() {
     return {
       visible: false
     }
   },
   computed: {
+    ...mapState('layout', ['sidebarFoldTrigger', 'headerStick', 'reloadTrigger', 'breadcrumbShow']),
     ...mapGetters(['sidebar'])
   },
   methods: {
@@ -129,6 +132,7 @@ export default {
 
   .ant-breadcrumb {
     display: inline-block;
+    padding-left: 12px;
   }
 
   .header-navbar-float-right {

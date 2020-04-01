@@ -8,13 +8,13 @@
 
     <a-layout class="layout-inside" :style="layoutInsideStyle">
       <!-- 顶部菜单 -->
-      <a-layout-header :class="['layout-header', { 'header-fix': layout.headerFix }]" :style="layoutHeaderStyle">
+      <a-layout-header v-show="fadeOnScroll" :class="['layout-header', { 'header-fix': layout.headerFix }]" :style="layoutHeaderStyle">
         <Header />
       </a-layout-header>
 
       <!-- 页面主体 -->
       <a-layout-content class="layout-content" :style="layoutContentStyle">
-        <TagsNav v-if="layout.tagsNavShow" :style="layoutTagsNavStyle" />
+        <TagsNav v-show="fadeOnScroll" v-if="layout.tagsNavShow" ref="tagsNav" :style="layoutTagsNavStyle" />
         <Content class="layout-content-main" :style="layoutContentMainStyle" />
       </a-layout-content>
 
@@ -44,6 +44,12 @@ export default {
     Sidebar,
     Logo
   },
+  data() {
+    return {
+      fadeOnScroll: true,
+      position: 0
+    }
+  },
   computed: {
     layout() {
       return this.$store.state.layout
@@ -64,9 +70,9 @@ export default {
       }
     },
     layoutHeaderStyle() {
-      let { sidebar, headerFix } = this.layout
+      let { sidebar, headerFix, headerStick } = this.layout
       return {
-        left: headerFix ? (sidebar ? '80px' : '256px') : 0
+        left: headerFix ? (headerStick ? 0 : sidebar ? '80px' : '256px') : 0
       }
     },
     layoutInsideStyle() {
@@ -87,7 +93,6 @@ export default {
         return {
           position: 'fixed',
           zIndex: 3,
-          // top: 0,
           width: `calc(100% - ${sidebar ? collapsedWidth : sidebarWidth}px)`
         }
       } else {
@@ -102,6 +107,32 @@ export default {
     },
     layoutFooterStyle() {
       return {}
+    }
+  },
+  created() {
+    this.handleScroll = this.$g.debounce(this.handleScroll, 20, false)
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+      let { headerFadeOnScroll, headerHeight } = this.layout
+      let scrollTop = document.documentElement?.scrollTop || document.body.scrollTop
+
+      let derection = scrollTop - this.position
+
+      this.position = scrollTop
+
+      // 顶部导航栏 多页签在滚动时渐隐
+      if (headerFadeOnScroll) {
+        if (derection > 0) {
+          let minTop = scrollTop - headerHeight - 44 > 0
+          minTop && (this.fadeOnScroll = false)
+        } else {
+          this.fadeOnScroll = true
+        }
+      }
     }
   }
 }
@@ -126,13 +157,12 @@ export default {
   line-height: @header-height;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   transition: all 0.2s ease-in-out;
-  z-index: 3;
 }
 .header-fix {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 11;
+  z-index: 14;
 }
 .layout-inside {
   min-height: 100vh;

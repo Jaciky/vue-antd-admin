@@ -1,10 +1,13 @@
 import deboc from 'lodash/debounce'
 import { Modal } from 'ant-design-vue'
 
-// 节流
-export const debounce = (f, t = 1000, le = true, tr = false) => {
+// 防抖
+export const debounce = (f, t = 1000, i = true) => {
   if (typeof f !== 'function') return
-  return deboc(f, t, { leading: le, trailing: tr })
+
+  let immediate = i ? { leading: true, trailing: false } : { leading: false, trailing: true }
+
+  return deboc(f, t, immediate)
 }
 
 export { default as once } from 'lodash/once' // _.once(func) 创建一个只能调用 func 一次的函数。 重复调用返回第一次调用的结果。

@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-tags-nav">
+  <div ref="tagsNav" class="layout-tags-nav">
     <div class="tags-nav-main">
       <a-tabs v-model="activeKey" type="editable-card" hide-add :animated="false" size="small" :tab-bar-gutter="10" @edit="onEdit">
         <a-tab-pane v-for="pane in panes" :key="pane.key" :tab="pane.title" :closable="pane.closable"></a-tab-pane>
@@ -54,12 +54,6 @@ export default {
     ...mapGetters(['tagsList']),
     layout() {
       return this.$store.state.layout
-    },
-    layoutTagsNavStyle() {
-      let { sidebar, tagsNavFix, collapsedWidth, sidebarWidth } = this.layout
-      return {
-        width: tagsNavFix ? `calc(100% - ${sidebar ? collapsedWidth : sidebarWidth}px)` : '100%'
-      }
     }
   },
   watch: {
@@ -69,6 +63,10 @@ export default {
   },
   created() {
     // this.getHomePage(this.$router.options.routes)
+    this.handleScroll = this.$g.debounce(this.handleScroll, 20, false)
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
     ...mapMutations('tagsNav', ['ADD_TAG', 'SET_HOME_PAGE_ROUTE', 'INIT_TAG']),
@@ -105,6 +103,20 @@ export default {
       }
       this.panes = panes
       this.activeKey = activeKey
+    },
+    handleScroll() {
+      let { headerHeight, tagsNavFix, headerFix, tagsNavShow } = this.layout
+
+      if (!headerFix && tagsNavFix && tagsNavShow) {
+        let scrollTop = document.documentElement?.scrollTop || document.body.scrollTop
+        let top = headerHeight - scrollTop
+        if (top <= 0) {
+          this.$refs.tagsNav.style.top = '0'
+        } else {
+          this.$refs.tagsNav.style.top = top + 'px'
+        }
+        console.log(top)
+      }
     }
   }
 }

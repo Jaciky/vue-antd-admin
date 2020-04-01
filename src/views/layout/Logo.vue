@@ -1,16 +1,8 @@
 <template>
-  <div class="sidebar-logo-container" :class="{ collapse: collapse }">
-    <transition name="logo">
-      <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo" />
-        <h1 v-else class="sidebar-title">{{ title }}</h1>
-      </router-link>
-      <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo" />
-        <h1 class="sidebar-title">{{ title }}</h1>
-      </router-link>
-    </transition>
-  </div>
+  <router-link class="layout-header-logo" :class="{ 'header-logo-stick': layout.headerStick }" :style="logoStyle" to="/">
+    <img v-if="logo" class="logo-image" :src="logo" />
+    <span v-if="!layout.sidebar || layout.headerStick" class="logo-title">{{ title }}</span>
+  </router-link>
 </template>
 
 <script>
@@ -27,58 +19,52 @@ export default {
   data() {
     return {
       title: config.title,
-      // logo: require('@/assets/images/logo.png')
-      logo: ''
+      logo: require('@/assets/images/logo.png')
+    }
+  },
+  computed: {
+    layout() {
+      return this.$store.state.layout
+    },
+    logoStyle() {
+      let { sidebarWidth, headerStick, sidebar, collapsedWidth } = this.layout
+      return {
+        width: headerStick ? `${sidebarWidth}px` : sidebar ? `${collapsedWidth}px` : `${sidebarWidth}px`
+      }
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.logo-enter-active {
-  transition: opacity 1.5s;
-}
-
-.logo-enter,
-.logo-leave-to {
-  opacity: 0;
-}
-
-.sidebar-logo-container {
+.layout-header-logo {
+  display: inline-block;
   height: @header-height;
+  width: @sider-width;
   line-height: @header-height;
-  background: transparent;
+  color: #fff;
   text-align: center;
-  overflow: hidden;
-  border-bottom: 1px solid #101117;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s ease;
 
-  & .sidebar-logo-link {
-    height: 100%;
-    width: 100%;
-
-    & .sidebar-logo {
-      width: 38px;
-      /*height: 32px;*/
-      vertical-align: middle;
-      margin-right: 12px;
-    }
-
-    & .sidebar-title {
-      display: inline-block;
-      margin: 0;
-      color: #fff;
-      font-weight: 600;
-      line-height: 50px;
-      font-size: 18px;
-      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-      vertical-align: middle;
-    }
+  * {
+    vertical-align: middle;
   }
 
-  &.collapse {
-    .sidebar-logo {
-      margin-right: 0px;
-    }
+  .logo-image {
+    width: 32px;
+    height: 32px;
   }
+
+  .logo-title {
+    font-size: 24px;
+    // font-weight: bold;
+    margin-left: 10px;
+  }
+}
+
+.header-logo-stick {
+  color: #333;
 }
 </style>
