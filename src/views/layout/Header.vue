@@ -43,21 +43,31 @@
         </span>
         <a-menu slot="overlay" @click="onClick">
           <a-menu-item key="1">
-            <a-icon type="smile" />
-            个人中心
+            <router-link to="/setting/user">
+              <a-icon type="smile" />
+              个人中心
+            </router-link>
           </a-menu-item>
 
           <a-menu-item key="2">
-            <a-icon type="setting" />
-            设置
+            <router-link to="/setting/account">
+              <a-icon type="setting" />
+              设置
+            </router-link>
           </a-menu-item>
+
           <a-menu-item key="3">
-            <a-icon type="github" />
-            Github
+            <a href="https://github.com/Jaciky/vue-antd-admin/tree/master" target="_blank">
+              <a-icon type="github" />
+              Github
+            </a>
           </a-menu-item>
+
           <a-menu-item key="4">
-            <a-icon type="code" />
-            查看文档
+            <a href="https://jaciky.github.io/vue-antd-admin-site/guide/" target="_blank">
+              <a-icon type="code" />
+              查看文档
+            </a>
           </a-menu-item>
           <a-menu-divider />
           <a-menu-item key="5">

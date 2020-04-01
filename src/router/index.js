@@ -18,6 +18,7 @@ import list from './modules/list'
 import editor from './modules/editor'
 import tool from './modules/tool'
 import profile from './modules/profile'
+import setting from './modules/setting'
 
 /**
  * hidden: true                   //当值为Truthy，该路由将会在导航栏中隐藏，如401、login等页面，或一些编辑页面/edit/1
@@ -84,6 +85,7 @@ export const asyncRoutes = [
   icon,
   charts,
   error,
+  setting,
   feedback,
   editor,
   tool,
