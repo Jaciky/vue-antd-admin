@@ -71,7 +71,9 @@ export default {
   methods: {
     ...mapMutations('tagsNav', ['ADD_TAG', 'SET_HOME_PAGE_ROUTE', 'INIT_TAG']),
     ...mapActions('tagsNav', ['delCurTagAct', 'delAllAct', 'delOthersTagAct']),
-    onClick() {},
+    onClick({ key }) {
+      console.log(key)
+    },
     callback(key) {
       console.log(key)
     },
@@ -125,15 +127,14 @@ export default {
 <style lang="less" scoped>
 .layout-tags-nav {
   width: 100%;
-  background-color: #f5f7f9;
+  background-color: #f0f2f5;
   transition: all 0.2s ease-in-out;
 }
 
 .tags-nav-main {
-  background: #f5f7f9;
+  display: flex;
   padding: 6px 0;
   margin: 0 12px 0 12px;
-  display: flex;
 
   /deep/.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-nav-container {
     height: auto;
@@ -169,6 +170,9 @@ export default {
   }
   /deep/.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x {
     color: #999;
+    &:hover {
+      color: #333;
+    }
   }
 
   .ant-tabs {
