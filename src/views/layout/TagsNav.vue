@@ -68,6 +68,9 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
   },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
     ...mapMutations('tagsNav', ['ADD_TAG', 'SET_HOME_PAGE_ROUTE', 'INIT_TAG']),
     ...mapActions('tagsNav', ['delCurTagAct', 'delAllAct', 'delOthersTagAct']),
@@ -117,7 +120,6 @@ export default {
         } else {
           this.$refs.tagsNav.style.top = top + 'px'
         }
-        console.log(top)
       }
     }
   }
