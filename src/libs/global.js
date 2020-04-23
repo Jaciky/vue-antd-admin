@@ -43,3 +43,6 @@ export const confirm = (content = '是否继续？', opts = {}) => {
     })
   })
 }
+
+// 全局图表一致性色彩表现
+export const colors = ['#01A1AC', '#739AFF', '#61a0a8', '#d48265', '#91c7ae']
