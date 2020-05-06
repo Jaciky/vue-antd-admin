@@ -1,103 +1,110 @@
-// import { login, logout, getInfo } from '_api/system'
-import { getToken, setToken, removeToken } from '@/libs/utils'
+import Vue from 'vue'
+import { login, getInfo, logout } from '@/api/login'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { welcome } from '@/utils/util'
 
-const state = {
-  token: getToken(),
-  name: '',
-  userId: '',
-  avatar: '',
-  roles: []
-}
+const user = {
+  state: {
+    token: '',
+    name: '',
+    welcome: '',
+    avatar: '',
+    roles: [],
+    info: {}
+  },
 
-const mutations = {
-  SET_TOKEN: (state, token) => {
-    state.token = token
+  mutations: {
+    SET_TOKEN: (state, token) => {
+      state.token = token
+    },
+    SET_NAME: (state, { name, welcome }) => {
+      state.name = name
+      state.welcome = welcome
+    },
+    SET_AVATAR: (state, avatar) => {
+      state.avatar = avatar
+    },
+    SET_ROLES: (state, roles) => {
+      state.roles = roles
+    },
+    SET_INFO: (state, info) => {
+      state.info = info
+    }
   },
-  SET_USERID: (state, userId) => {
-    state.userId = userId
-  },
-  SET_NAME: (state, name) => {
-    state.name = name
-  },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
-  },
-  SET_ROLES: (state, roles) => {
-    state.roles = roles
+
+  actions: {
+    // 登录
+    Login({ commit }, userInfo) {
+      return new Promise((resolve, reject) => {
+        login(userInfo)
+          .then(response => {
+            const result = response.result
+            Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
+            commit('SET_TOKEN', result.token)
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
+    // 获取用户信息
+    GetInfo({ commit }) {
+      return new Promise((resolve, reject) => {
+        getInfo()
+          .then(response => {
+            const result = response.result
+
+            if (result.role && result.role.permissions.length > 0) {
+              const role = result.role
+              role.permissions = result.role.permissions
+              role.permissions.map(per => {
+                if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
+                  const action = per.actionEntitySet.map(action => {
+                    return action.action
+                  })
+                  per.actionList = action
+                }
+              })
+              role.permissionList = role.permissions.map(permission => {
+                return permission.permissionId
+              })
+              commit('SET_ROLES', result.role)
+              commit('SET_INFO', result)
+            } else {
+              reject(new Error('getInfo: roles must be a non-null array !'))
+            }
+
+            commit('SET_NAME', { name: result.name, welcome: welcome() })
+            commit('SET_AVATAR', result.avatar)
+
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
+    // 登出
+    Logout({ commit, state }) {
+      return new Promise(resolve => {
+        logout(state.token)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            resolve()
+          })
+          .finally(() => {
+            commit('SET_TOKEN', '')
+            commit('SET_ROLES', [])
+            Vue.ls.remove(ACCESS_TOKEN)
+          })
+      })
+    }
   }
 }
 
-const actions = {
-  // 登录
-  login({ commit }, userInfo) {
-    // const { account, password } = userInfo
-    return new Promise((resolve, reject) => {
-      // login({ account, password })
-      //   .then(res => {
-      //     commit('SET_TOKEN', res.data)
-      //     setToken(res.data) // 存储本地
-      //     resolve()
-      //   })
-      //   .catch(err => {
-      //     reject(err)
-      //   })
-
-      setTimeout(() => {
-        commit('SET_TOKEN', 'ant-token')
-        setToken('ant-token') // 存储本地
-        resolve()
-      }, 300)
-    })
-  },
-
-  // 退出登录
-  async logout({ dispatch }) {
-    await dispatch('clearInfo')
-  },
-
-  // 清除登录信息
-  async clearInfo({ commit }) {
-    commit('SET_TOKEN', '')
-    commit('SET_ROLES', [])
-    commit('SET_NAME', '')
-    commit('SET_USERID', '')
-    removeToken()
-  },
-
-  // 获取用户信息
-  getInfo({ state, commit }) {
-    return new Promise((resolve, reject) => {
-      // getInfo(state.token)
-      //   .then(res => {
-      //     const { roles, realName, avatar, userId } = res.data
-
-      //     // if (!id) {
-      //     //   reject('拉取用户信息失败，请重新登录！')
-      //     // }
-
-      //     commit('SET_ROLES', ['admin'])
-      //     commit('SET_NAME', realName)
-      //     // commit('SET_AVATAR', avatar)
-      //     commit('SET_USERID', userId)
-      //     resolve(res.data)
-      //   })
-      //   .catch(err => {
-      //     reject(err)
-      //   })
-
-      setTimeout(() => {
-        commit('SET_ROLES', ['admin'])
-        commit('SET_NAME', 'amdin')
-        commit('SET_USERID', '001')
-        resolve('ant-token')
-      }, 300)
-    })
-  }
-}
-
-export default {
-  namespaced: true,
-  state,
-  mutations,
-  actions
-}
+export default user

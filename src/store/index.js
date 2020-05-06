@@ -1,21 +1,26 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import getters from './getters'
-import layout from './modules/layout'
-import auth from './modules/auth'
+import app from './modules/app'
 import user from './modules/user'
+
+// default router permission control
+import permission from './modules/permission'
+
+// dynamic router permission control (Experimental)
+// import permission from './modules/async-router'
+import getters from './getters'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
-  state: {},
-  getters,
+export default new Vuex.Store({
   modules: {
-    layout,
-    auth,
-    user
-  }
+    app,
+    user,
+    permission
+  },
+  state: {},
+  mutations: {},
+  actions: {},
+  getters
 })
-
-export default store

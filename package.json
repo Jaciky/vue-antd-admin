@@ -3,23 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --copy --port 8888",
-    "build:prod": "vue-cli-service build --modern --mode prod",
-    "build:test": "vue-cli-service build --modern --mode test",
-    "lint": "vue-cli-service lint"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build:preview": "vue-cli-service build --mode preview",
+    "lint": "vue-cli-service lint",
+    "lint:nofix": "vue-cli-service lint --no-fix"
   },
   "dependencies": {
+    "@antv/data-set": "^0.10.2",
     "@antv/g2plot": "^1.0.4",
     "ant-design-vue": "^1.5.3",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
-    "normalize.css": "8.0.1",
+    "md5": "^2.2.1",
+    "mockjs2": "1.0.8",
+    "moment": "^2.24.0",
     "nprogress": "^0.2.0",
+    "viser-vue": "^2.4.6",
     "vue": "^2.6.11",
+    "vue-clipboard2": "^0.2.1",
+    "vue-cropper": "0.4.9",
+    "vue-ls": "^3.2.1",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.1.6",
-    "vuex": "^3.2.0"
+    "vue-svg-component-runtime": "^1.0.1",
+    "vuex": "^3.2.0",
+    "wangeditor": "^3.1.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
@@ -31,6 +42,7 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.0.3",
     "babel-plugin-import": "^1.13.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "compression-webpack-plugin": "^3.1.0",
     "copy-webpack-plugin": "^5.1.1",
     "eslint": "^6.8.0",
@@ -41,8 +53,10 @@
     "prettier": "^2.0.5",
     "script-ext-html-webpack-plugin": "^2.1.4",
     "style-resources-loader": "^1.3.3",
+    "vue-svg-icon-loader": "^2.1.1",
     "vue-cli-plugin-style-resources-loader": "^0.1.4",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack-theme-color-replacer": "^1.2.17"
   },
   "postcss": {
     "plugins": {
@@ -52,6 +66,6 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "ie 11"
+    "not ie <= 10"
   ]
 }

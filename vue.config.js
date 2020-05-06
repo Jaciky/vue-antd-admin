@@ -1,62 +1,57 @@
 'use strict'
 const path = require('path')
-const name = 'vue-antd-admin-template'
+const webpack = require('webpack')
+const createThemeColorReplacerPlugin = require('./config/plugin.config')
 
-module.exports = {
-  publicPath: './',
-  assetsDir: 'static',
-  outputDir: process.env.outputDir,
-  lintOnSave: false,
-  productionSourceMap: process.env.VUE_APP_CUR_MODE === 'test',
-  runtimeCompiler: false,
-  css: {
-    loaderOptions: {
-      less: {
-        modifyVars: {
-          'primary-color': '#13ce66',
-          'link-color': '#1DA57A',
-          'border-radius-base': '2px'
-        },
-        javascriptEnabled: true
-      }
-    }
+const isProd = process.env.NODE_ENV === 'production'
+
+const assetsCDN = {
+  // webpack build externals
+  externals: {
+    vue: 'Vue',
+    'vue-router': 'VueRouter',
+    vuex: 'Vuex',
+    axios: 'axios'
   },
-  pluginOptions: {
-    'style-resources-loader': {
-      preProcessor: 'less',
-      patterns: [path.resolve(__dirname, './src/assets/styles/variables.less')]
-    }
-  },
+  css: [],
+  // https://unpkg.com/browse/vue@2.6.10/
+  js: [
+    '//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js',
+    '//cdn.jsdelivr.net/npm/vue-router@3.1.3/dist/vue-router.min.js',
+    '//cdn.jsdelivr.net/npm/vuex@3.1.1/dist/vuex.min.js',
+    '//cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js'
+  ]
+}
+
+const vueConfig = {
   configureWebpack: {
-    name,
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
-        _com: path.resolve(__dirname, './src/components'),
-        _api: path.resolve(__dirname, './src/api'),
-        _views: path.resolve(__dirname, './src/views')
-      }
-    }
+    // webpack plugins
+    plugins: [
+      // Ignore all locale files of moment.js
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    ],
+    // if prod, add externals
+    externals: isProd ? assetsCDN.externals : {}
   },
+
   chainWebpack: config => {
     // https://cli.vuejs.org/zh/guide/html-and-static-assets.html#preload
     config.plugins.delete('preload')
     config.plugins.delete('prefetch')
 
-    config.when(process.env.NODE_ENV === 'development', config => {
+    config.when(!isProd, config => {
       config.devtool('cheap-source-map')
       config.optimization.minimize(false)
     })
 
-    config.when(process.env.NODE_ENV === 'production', config => {
-      // 启用 Gzip 压缩
+    config.when(isProd, config => {
       config
         .plugin('CompressionWebpackPlugin')
         .use(require('compression-webpack-plugin'), [
           {
-            filename: '[path].gz[query]', // 目标文件名
-            algorithm: 'gzip', // 使用gzip压缩
-            test: new RegExp('\\.(js|css)$'), // 压缩 js 与 css
+            filename: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: new RegExp('\\.(js|css)$'),
             threshold: 10240, // 资源文件大于10240B=10kB时会被压缩
             minRatio: 0.8 // 最小压缩比达到0.8时才会被压缩
           }
@@ -64,15 +59,86 @@ module.exports = {
         .end()
 
       config.optimization.runtimeChunk('single') // 将多入口的webpack运行时文件打包成一个 runtime文件
+
+      // if prod is on
+      // assets require on cdn
+      config.plugin('html').tap(args => {
+        args[0].cdn = assetsCDN
+        return args
+      })
     })
+
+    config.resolve.alias.set('@', path.resolve('src'))
+
+    const svgRule = config.module.rule('svg')
+    svgRule.uses.clear()
+    svgRule
+      .oneOf('inline')
+      .resourceQuery(/inline/)
+      .use('vue-svg-icon-loader')
+      .loader('vue-svg-icon-loader')
+      .end()
+      .end()
+      .oneOf('external')
+      .use('file-loader')
+      .loader('file-loader')
+      .options({
+        name: 'assets/[name].[hash:8].[ext]'
+      })
   },
+
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          // less vars，customize ant design theme
+
+          // 'primary-color': '#13ce66',
+          // 'link-color': '#1DA57A',
+          'border-radius-base': '2px'
+        },
+        javascriptEnabled: true
+      }
+    }
+  },
+
+  // global less variables
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'less',
+      patterns: [path.resolve(__dirname, './src/assets/styles/variables.less')]
+    }
+  },
+
   devServer: {
     open: true,
     disableHostCheck: true,
     overlay: {
       warnings: false,
       errors: true
-    },
-    proxy: 'http://192.168.1.141:8888'
-  }
+    }
+    // proxy: {
+    //   '/api': {
+    //     target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
+    //     ws: false,
+    //     changeOrigin: true
+    //   }
+    // }
+  },
+
+  // disable source map in production
+  productionSourceMap: false,
+  lintOnSave: false,
+  runtimeCompiler: false,
+  // babel-loader no-ignore node_modules/*
+  transpileDependencies: []
 }
+
+// preview.pro.loacg.com only do not use in your production;
+if (process.env.VUE_APP_PREVIEW === 'true') {
+  console.log('VUE_APP_PREVIEW', true)
+  // add `ThemeColorReplacer` plugin to webpack plugins
+  vueConfig.configureWebpack.plugins.push(createThemeColorReplacerPlugin())
+}
+
+module.exports = vueConfig

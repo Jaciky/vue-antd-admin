@@ -15,7 +15,7 @@ before_install:
 
 script:
   - set -e # 确保脚本抛出遇到的错误
-  - npm run build:prod # 执行命令
+  - npm run build # 执行命令
 
 notifications:
   email: false
