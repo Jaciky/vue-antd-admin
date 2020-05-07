@@ -31,17 +31,17 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     } else {
       // 判断是否拉取用户信息
-      const hasRoles = store.getters.roles?.length
+      const hasUserId = store.getters.userId
 
-      if (hasRoles) {
+      if (hasUserId) {
         next()
       } else {
         try {
           // 获取用户角色信息
-          await store.dispatch('user/getInfo')
+          await store.dispatch('GetInfo')
 
           // 根据用户角色生成可访问路由
-          await store.dispatch('permission/GenerateRoutes')
+          await store.dispatch('GenerateRoutes')
 
           // 动态添加可访问路由
           router.addRoutes(store.getters.addRouters)
@@ -57,7 +57,7 @@ router.beforeEach(async (to, from, next) => {
             description: '请求用户信息失败，请重试'
           })
 
-          await store.dispatch('user/Logout')
+          await store.dispatch('Logout')
           next({ path: '/user/login', query: { redirect: to.fullPath } })
         }
       }

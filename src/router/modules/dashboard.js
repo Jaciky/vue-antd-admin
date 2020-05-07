@@ -7,13 +7,13 @@ export default {
   name: 'dashboard',
   redirect: '/dashboard/workplace',
   component: RouteView,
-  meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] },
+  meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse },
   children: [
     {
       path: 'analysis/:pageNo([1-9]\\d*)?',
       name: 'Analysis',
       component: () => import('@/views/dashboard/Analysis'),
-      meta: { title: '分析页', keepAlive: false, permission: ['dashboard'] }
+      meta: { title: '分析页', keepAlive: false }
     },
     // 外部链接
     {
@@ -25,13 +25,13 @@ export default {
       path: 'workplace',
       name: 'Workplace',
       component: () => import('@/views/dashboard/Workplace'),
-      meta: { title: '工作台', keepAlive: true, permission: ['dashboard'] }
+      meta: { title: '工作台', keepAlive: true }
     },
     {
       path: 'test-work',
       name: 'TestWork',
       component: () => import('@/views/dashboard/TestWork'),
-      meta: { title: '测试功能', keepAlive: true, permission: ['dashboard'] }
+      meta: { title: '测试功能', keepAlive: true }
     }
   ]
 }

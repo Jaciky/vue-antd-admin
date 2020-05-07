@@ -119,14 +119,15 @@ const vueConfig = {
     overlay: {
       warnings: false,
       errors: true
-    },
-    proxy: {
-      [process.env.VUE_APP_API_BASE_URL]: {
-        target: `http://127.0.0.1:${port}/mock`,
-        ws: false,
-        changeOrigin: true
-      }
     }
+    // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
+    // proxy: {
+    //   [process.env.VUE_APP_API_BASE_URL]: {
+    //     target: `http://127.0.0.1:${port}/mock`,
+    //     ws: false,
+    //     changeOrigin: true
+    //   }
+    // }
   },
 
   // disable source map in production

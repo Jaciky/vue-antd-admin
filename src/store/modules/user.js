@@ -7,6 +7,7 @@ const user = {
   state: {
     token: '',
     name: '',
+    id: '',
     welcome: '',
     avatar: '',
     roles: [],
@@ -21,6 +22,9 @@ const user = {
     SET_NAME: (state, { name, welcome }) => {
       state.name = name
       state.welcome = welcome
+    },
+    SET_USERID: (state, id) => {
+      state.id = id
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
@@ -42,7 +46,7 @@ const user = {
       return new Promise((resolve, reject) => {
         login(userInfo)
           .then(response => {
-            const result = response.data
+            const result = response.result
             Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
             commit('SET_TOKEN', result.token)
             resolve()
@@ -58,18 +62,19 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo()
           .then(async response => {
-            const result = response.data
+            const result = response.result
 
             console.log(result)
 
             if (!result.id) reject('获取用户信息失败，请重试！')
-            try {
-              await dispatch('getPermission')
-            } catch (error) {
-              reject('获取用户权限失败，请重试！')
-            }
-
+            // try {
+            //   await dispatch('GetPermissions')
+            // } catch (error) {
+            //   reject('获取用户权限失败，请重试！')
+            // }
+            commit('SET_INFO', result)
             commit('SET_NAME', { name: result.name, welcome: welcome() })
+            commit('SET_USERID', result.id)
             commit('SET_AVATAR', result.avatar)
 
             resolve(result)
@@ -85,7 +90,7 @@ const user = {
       return new Promise((resolve, reject) => {
         getPermission()
           .then(response => {
-            const permissions = response.data
+            const permissions = response.result
             commit('SET_PERMISSIONS', permissions)
             resolve()
           })
@@ -108,6 +113,7 @@ const user = {
           .finally(() => {
             commit('SET_TOKEN', '')
             commit('SET_ROLES', [])
+            commit('SET_USERID', '')
             Vue.ls.remove(ACCESS_TOKEN)
           })
       })

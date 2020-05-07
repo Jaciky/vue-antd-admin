@@ -247,7 +247,7 @@ export default {
       this.isLoginError = true
       this.$notification['error']({
         message: '错误',
-        description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
+        description: err?.response?.data?.message ?? '请求出现错误，请稍后再试',
         duration: 4
       })
     }

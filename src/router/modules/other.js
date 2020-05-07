@@ -5,14 +5,14 @@ export default {
   path: '/other',
   name: 'otherPage',
   component: PageView,
-  meta: { title: '其他组件', icon: 'slack', permission: ['dashboard'] },
+  meta: { title: '其他组件', icon: 'slack' },
   redirect: '/other/icon-selector',
   children: [
     {
       path: '/other/icon-selector',
       name: 'TestIconSelect',
       component: () => import('@/views/other/IconSelectorView'),
-      meta: { title: 'IconSelector', icon: 'tool', keepAlive: true, permission: ['dashboard'] }
+      meta: { title: 'IconSelector', icon: 'tool', keepAlive: true }
     },
     {
       path: '/other/list',
