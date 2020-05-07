@@ -1,22 +1,24 @@
-import Layout from '_views/layout/Layout.vue'
+import { RouteView } from '@/layouts'
 
+// profile
 export default {
   path: '/profile',
-  component: Layout,
+  name: 'profile',
+  component: RouteView,
   redirect: '/profile/basic',
-  meta: { title: '详情页面', icon: 'code' },
+  meta: { title: '详情页', icon: 'profile', permission: ['profile'] },
   children: [
     {
       path: '/profile/basic',
       name: 'ProfileBasic',
-      component: () => import(/* webpackChunkName:"profile"*/ '_views/profile/basic.vue'),
-      meta: { title: '基础详情页', icon: 'code', cache: true }
+      component: () => import('@/views/profile/basic/Index'),
+      meta: { title: '基础详情页', permission: ['profile'] }
     },
     {
       path: '/profile/advanced',
       name: 'ProfileAdvanced',
-      component: () => import(/* webpackChunkName:"profile"*/ '_views/profile/advanced.vue'),
-      meta: { title: '复杂详情页', icon: 'code', cache: true }
+      component: () => import('@/views/profile/advanced/Advanced'),
+      meta: { title: '高级详情页', permission: ['profile'] }
     }
   ]
 }

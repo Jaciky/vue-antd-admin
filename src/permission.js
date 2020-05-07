@@ -20,13 +20,13 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start()
 
   // 设置网页标题
-  to.meta && typeof to.meta.title !== 'undefined' && setDocumentTitle(`${to.meta.title} - ${domTitle}`)
+  to.meta?.title && setDocumentTitle(`${to.meta.title} - ${domTitle}`)
 
   // 判断用户是否已登录
   const hasToken = Vue.ls.get(ACCESS_TOKEN)
 
   if (hasToken) {
-    if (to.path === '/login') {
+    if (to.path === '/user/login') {
       next({ path: defaultRoutePath })
       NProgress.done()
     } else {
@@ -41,10 +41,10 @@ router.beforeEach(async (to, from, next) => {
           await store.dispatch('user/getInfo')
 
           // 根据用户角色生成可访问路由
-          await store.dispatch('auth/generateRoutes')
+          await store.dispatch('permission/GenerateRoutes')
 
           // 动态添加可访问路由
-          router.addRoutes(store.state.auth.addRoutes)
+          router.addRoutes(store.getters.addRouters)
 
           // 请求带有 redirect 重定向时，登录自动重定向到该地址
           const redirect = decodeURIComponent(from.query.redirect || to.path)
@@ -57,8 +57,8 @@ router.beforeEach(async (to, from, next) => {
             description: '请求用户信息失败，请重试'
           })
 
-          await store.dispatch('user/clearInfo')
-          next({ path: '/login', query: { redirect: to.fullPath } })
+          await store.dispatch('user/Logout')
+          next({ path: '/user/login', query: { redirect: to.fullPath } })
         }
       }
     }
@@ -68,7 +68,7 @@ router.beforeEach(async (to, from, next) => {
       // 进入免登陆页面
       next()
     } else {
-      next({ path: '/login', query: { redirect: to.fullPath } })
+      next({ path: '/user/login', query: { redirect: to.fullPath } })
       NProgress.done()
     }
   }

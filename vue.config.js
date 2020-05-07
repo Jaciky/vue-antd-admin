@@ -5,6 +5,8 @@ const createThemeColorReplacerPlugin = require('./config/plugin.config')
 
 const isProd = process.env.NODE_ENV === 'production'
 
+const port = process.env.port || process.env.npm_config_port || 9527 // dev port
+
 const assetsCDN = {
   // webpack build externals
   externals: {
@@ -14,12 +16,12 @@ const assetsCDN = {
     axios: 'axios'
   },
   css: [],
-  // https://unpkg.com/browse/vue@2.6.10/
+  // https://unpkg.com/browse/vue@2.6.11/
   js: [
-    '//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js',
-    '//cdn.jsdelivr.net/npm/vue-router@3.1.3/dist/vue-router.min.js',
-    '//cdn.jsdelivr.net/npm/vuex@3.1.1/dist/vuex.min.js',
-    '//cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js'
+    '//cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
+    '//cdn.jsdelivr.net/npm/vue-router@3.1.6/dist/vue-router.min.js',
+    '//cdn.jsdelivr.net/npm/vuex@3.2.0/dist/vuex.min.js',
+    '//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js'
   ]
 }
 
@@ -58,7 +60,7 @@ const vueConfig = {
         ])
         .end()
 
-      config.optimization.runtimeChunk('single') // 将多入口的webpack运行时文件打包成一个 runtime文件
+      config.optimization.runtimeChunk('single')
 
       // if prod is on
       // assets require on cdn
@@ -111,19 +113,20 @@ const vueConfig = {
   },
 
   devServer: {
+    port: port,
     open: true,
     disableHostCheck: true,
     overlay: {
       warnings: false,
       errors: true
+    },
+    proxy: {
+      [process.env.VUE_APP_API_BASE_URL]: {
+        target: `http://127.0.0.1:${port}/mock`,
+        ws: false,
+        changeOrigin: true
+      }
     }
-    // proxy: {
-    //   '/api': {
-    //     target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     ws: false,
-    //     changeOrigin: true
-    //   }
-    // }
   },
 
   // disable source map in production

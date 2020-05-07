@@ -1,28 +1,58 @@
-import Layout from '_views/layout/Layout.vue'
+import { PageView } from '@/layouts'
 
+// list
 export default {
   path: '/list',
-  component: Layout,
-  redirect: '/list/basic-list',
-  meta: { title: '列表页面', icon: 'code' },
+  name: 'list',
+  component: PageView,
+  redirect: '/list/table-list',
+  meta: { title: '列表页', icon: 'table', permission: ['table'] },
   children: [
+    {
+      path: '/list/table-list/:pageNo([1-9]\\d*)?',
+      name: 'TableListWrapper',
+      hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+      component: () => import('@/views/list/TableList'),
+      meta: { title: '查询表格', keepAlive: true, permission: ['table'] }
+    },
     {
       path: '/list/basic-list',
       name: 'BasicList',
-      component: () => import(/* webpackChunkName:"list"*/ '_views/list/basic-list.vue'),
-      meta: { title: '基础列表', icon: '' }
+      component: () => import('@/views/list/StandardList'),
+      meta: { title: '标准列表', keepAlive: true, permission: ['table'] }
     },
     {
-      path: '/list/card-list',
+      path: '/list/card',
       name: 'CardList',
-      component: () => import(/* webpackChunkName:"list"*/ '_views/list/card-list.vue'),
-      meta: { title: '卡片列表', icon: '' }
+      component: () => import('@/views/list/CardList'),
+      meta: { title: '卡片列表', keepAlive: true, permission: ['table'] }
     },
     {
-      path: '/list/table-list',
-      name: 'TableList',
-      component: () => import(/* webpackChunkName:"list"*/ '_views/list/table-list.vue'),
-      meta: { title: 'table查询', icon: '' }
+      path: '/list/search',
+      name: 'SearchList',
+      component: () => import('@/views/list/search/SearchLayout'),
+      redirect: '/list/search/article',
+      meta: { title: '搜索列表', keepAlive: true, permission: ['table'] },
+      children: [
+        {
+          path: '/list/search/article',
+          name: 'SearchArticles',
+          component: () => import('@/views/list/search/Article'),
+          meta: { title: '搜索列表（文章）', permission: ['table'] }
+        },
+        {
+          path: '/list/search/project',
+          name: 'SearchProjects',
+          component: () => import('@/views/list/search/Projects'),
+          meta: { title: '搜索列表（项目）', permission: ['table'] }
+        },
+        {
+          path: '/list/search/application',
+          name: 'SearchApplications',
+          component: () => import('@/views/list/search/Applications'),
+          meta: { title: '搜索列表（应用）', permission: ['table'] }
+        }
+      ]
     }
   ]
 }

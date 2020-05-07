@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { login, getInfo, logout } from '@/api/login'
+import { login, getInfo, logout, getPermission } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
@@ -10,6 +10,7 @@ const user = {
     welcome: '',
     avatar: '',
     roles: [],
+    permissions: [], // 权限id
     info: {}
   },
 
@@ -27,6 +28,9 @@ const user = {
     SET_ROLES: (state, roles) => {
       state.roles = roles
     },
+    SET_PERMISSIONS: (state, permissions) => {
+      state.permissions = permissions
+    },
     SET_INFO: (state, info) => {
       state.info = info
     }
@@ -38,7 +42,7 @@ const user = {
       return new Promise((resolve, reject) => {
         login(userInfo)
           .then(response => {
-            const result = response.result
+            const result = response.data
             Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
             commit('SET_TOKEN', result.token)
             resolve()
@@ -50,36 +54,40 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit }) {
+    GetInfo({ commit, dispatch }) {
       return new Promise((resolve, reject) => {
         getInfo()
-          .then(response => {
-            const result = response.result
+          .then(async response => {
+            const result = response.data
 
-            if (result.role && result.role.permissions.length > 0) {
-              const role = result.role
-              role.permissions = result.role.permissions
-              role.permissions.map(per => {
-                if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
-                  const action = per.actionEntitySet.map(action => {
-                    return action.action
-                  })
-                  per.actionList = action
-                }
-              })
-              role.permissionList = role.permissions.map(permission => {
-                return permission.permissionId
-              })
-              commit('SET_ROLES', result.role)
-              commit('SET_INFO', result)
-            } else {
-              reject(new Error('getInfo: roles must be a non-null array !'))
+            console.log(result)
+
+            if (!result.id) reject('获取用户信息失败，请重试！')
+            try {
+              await dispatch('getPermission')
+            } catch (error) {
+              reject('获取用户权限失败，请重试！')
             }
 
             commit('SET_NAME', { name: result.name, welcome: welcome() })
             commit('SET_AVATAR', result.avatar)
 
-            resolve(response)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
+    // 获取用户权限信息
+    GetPermissions({ commit }) {
+      return new Promise((resolve, reject) => {
+        getPermission()
+          .then(response => {
+            const permissions = response.data
+            commit('SET_PERMISSIONS', permissions)
+            resolve()
           })
           .catch(error => {
             reject(error)
@@ -88,9 +96,9 @@ const user = {
     },
 
     // 登出
-    Logout({ commit, state }) {
+    Logout({ commit, state: { token } }) {
       return new Promise(resolve => {
-        logout(state.token)
+        logout(token)
           .then(() => {
             resolve()
           })
