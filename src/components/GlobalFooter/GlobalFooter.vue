@@ -1,12 +1,12 @@
 <template>
   <div class="footer">
     <div class="links">
-      <a href="https://pro.loacg.com/" target="_blank">Pro 首页</a>
-      <a href="https://github.com/sendya/ant-design-pro-vue" target="_blank">
+      <a href="https://jaciky.github.io/vue-antd-admin-site/" target="_blank">首页</a>
+      <a href="https://github.com/Jaciky/vue-antd-admin" target="_blank">
         <a-icon type="github" />
       </a>
       <a href="https://ant.design/">Ant Design</a>
-      <a href="https://vue.ant.design/">Vue Antd</a>
+      <a href="https://pro.loacg.com/">Antd Pro</a>
     </div>
     <div class="copyright">
       Copyright

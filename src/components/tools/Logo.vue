@@ -9,6 +9,7 @@
 
 <script>
 import LogoSvg from '@/assets/logo.svg?inline'
+import config from '@/config'
 
 export default {
   name: 'Logo',
@@ -18,7 +19,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Ant Design Pro',
+      default: config.title,
       required: false
     },
     showTitle: {

@@ -14,7 +14,7 @@
  */
 
 export default {
-  title: 'vue-antd-admin', // 配置显示在浏览器标签的title
+  title: 'Vue Antd Admin', // 配置显示在浏览器标签的title
   cookieExpires: 7, // token在Cookie中存储的天数，默认7天
   tagsView: true, // 快速导航标签是否显示
   path: '/', // 默认地址
@@ -31,7 +31,7 @@ export default {
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
   // vue-ls options
   storageOptions: {
-    namespace: 'pro__', // key prefix
+    namespace: 'vaa__', // key prefix
     name: 'ls', // name variable Vue.[ls] or this.[$ls],
     storage: 'local' // storage name session, local, memory
   }
