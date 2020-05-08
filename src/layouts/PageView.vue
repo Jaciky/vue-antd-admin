@@ -3,7 +3,9 @@
     <!-- pageHeader , route meta :true on hide -->
     <page-header v-if="!$route.meta.hiddenHeaderContent" :title="pageTitle" :logo="logo" :avatar="avatar">
       <slot slot="action" name="action"></slot>
+
       <slot slot="content" name="headerContent"></slot>
+
       <div v-if="!this.$slots.headerContent && description" slot="content">
         <p style="font-size: 14px; color: rgba(0, 0, 0, 0.65);">{{ description }}</p>
         <div class="link">
