@@ -44,26 +44,26 @@ export default {
     TagSelectOption,
     StandardFormRow
   },
-  data () {
+  filters: {
+    fromNow(date) {
+      return moment(date).fromNow()
+    }
+  },
+  data() {
     return {
       data: [],
       form: this.$form.createForm(this),
       loading: true
     }
   },
-  filters: {
-    fromNow (date) {
-      return moment(date).fromNow()
-    }
-  },
-  mounted () {
+  mounted() {
     this.getList()
   },
   methods: {
-    handleChange (value) {
+    handleChange(value) {
       console.log(`selected ${value}`)
     },
-    getList () {
+    getList() {
       this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
         console.log('res', res)
         this.data = res.result
@@ -75,35 +75,35 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .ant-pro-pages-account-projects-cardList {
-    margin-top: 24px;
+.ant-pro-pages-account-projects-cardList {
+  margin-top: 24px;
 
-    /deep/ .ant-card-meta-title {
-      margin-bottom: 4px;
+  /deep/ .ant-card-meta-title {
+    margin-bottom: 4px;
+  }
+
+  /deep/ .ant-card-meta-description {
+    height: 44px;
+    overflow: hidden;
+    line-height: 22px;
+  }
+
+  .cardItemContent {
+    display: flex;
+    height: 20px;
+    margin-top: 16px;
+    margin-bottom: -4px;
+    line-height: 20px;
+
+    > span {
+      flex: 1 1;
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 12px;
     }
 
-    /deep/ .ant-card-meta-description {
-      height: 44px;
-      overflow: hidden;
-      line-height: 22px;
-    }
-
-    .cardItemContent {
-      display: flex;
-      height: 20px;
-      margin-top: 16px;
-      margin-bottom: -4px;
-      line-height: 20px;
-
-      > span {
-        flex: 1 1;
-        color: rgba(0,0,0,.45);
-        font-size: 12px;
-      }
-
-      /deep/ .ant-pro-avatar-list {
-        flex: 0 1 auto;
-      }
+    /deep/ .ant-pro-avatar-list {
+      flex: 0 1 auto;
     }
   }
+}
 </style>

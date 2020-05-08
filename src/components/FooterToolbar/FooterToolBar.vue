@@ -1,9 +1,9 @@
 <template>
   <div :class="prefixCls">
-    <div style="float: left">
+    <div style="float: left;">
       <slot name="extra">{{ extra }}</slot>
     </div>
-    <div style="float: right">
+    <div style="float: right;">
       <slot></slot>
     </div>
   </div>
@@ -25,6 +25,4 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

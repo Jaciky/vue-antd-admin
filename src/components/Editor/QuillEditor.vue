@@ -1,15 +1,14 @@
 <template>
   <div :class="prefixCls">
     <quill-editor
-      v-model="content"
       ref="myQuillEditor"
+      v-model="content"
       :options="editorOption"
       @blur="onEditorBlur($event)"
       @focus="onEditorFocus($event)"
       @ready="onEditorReady($event)"
-      @change="onEditorChange($event)">
-    </quill-editor>
-
+      @change="onEditorChange($event)"
+    ></quill-editor>
   </div>
 </template>
 
@@ -36,7 +35,7 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       content: null,
       editorOption: {
@@ -44,24 +43,24 @@ export default {
       }
     }
   },
-  methods: {
-    onEditorBlur (quill) {
-      console.log('editor blur!', quill)
-    },
-    onEditorFocus (quill) {
-      console.log('editor focus!', quill)
-    },
-    onEditorReady (quill) {
-      console.log('editor ready!', quill)
-    },
-    onEditorChange ({ quill, html, text }) {
-      console.log('editor change!', quill, html, text)
-      this.$emit('change', html)
+  watch: {
+    value(val) {
+      this.content = val
     }
   },
-  watch: {
-    value (val) {
-      this.content = val
+  methods: {
+    onEditorBlur(quill) {
+      console.log('editor blur!', quill)
+    },
+    onEditorFocus(quill) {
+      console.log('editor focus!', quill)
+    },
+    onEditorReady(quill) {
+      console.log('editor ready!', quill)
+    },
+    onEditorChange({ quill, html, text }) {
+      console.log('editor change!', quill, html, text)
+      this.$emit('change', html)
     }
   }
 }

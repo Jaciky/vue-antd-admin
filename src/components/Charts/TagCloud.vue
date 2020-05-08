@@ -18,7 +18,7 @@ const scale = [
 ]
 
 registerShape('point', 'cloud', {
-  draw (cfg, container) {
+  draw(cfg, container) {
     return container.addShape('text', {
       attrs: {
         fillOpacity: cfg.opacity,
@@ -53,7 +53,7 @@ export default {
       default: 640
     }
   },
-  data () {
+  data() {
     return {
       data: [],
       scale
@@ -66,13 +66,13 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     if (this.tagList.length > 0) {
       this.initTagCloud(this.tagList)
     }
   },
   methods: {
-    initTagCloud (dataSource) {
+    initTagCloud(dataSource) {
       const { height, width } = this
 
       const dv = new DataSet.View().source(dataSource)
@@ -91,14 +91,14 @@ export default {
           font: 'Verdana',
           padding: 0,
           timeInterval: 5000, // max execute time
-          rotate () {
+          rotate() {
             let random = ~~(Math.random() * 4) % 4
             if (random === 2) {
               random = 0
             }
             return random * 90 // 0, 90, 270
           },
-          fontSize (d) {
+          fontSize(d) {
             if (d.value) {
               return ((d.value - min) / (max - min)) * (32 - 8) + 8
             }

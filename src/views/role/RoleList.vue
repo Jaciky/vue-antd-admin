@@ -2,59 +2,71 @@
   <a-card :bordered="false" :style="{ height: '100%' }">
     <a-row :gutter="24">
       <a-col :md="4">
-        <a-list itemLayout="vertical" :dataSource="roles">
-          <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
+        <a-list item-layout="vertical" :data-source="roles">
+          <a-list-item slot="renderItem" :key="index" slot-scope="item, index">
             <a-list-item-meta :style="{ marginBottom: '0' }">
-              <span slot="description" style="text-align: center; display: block">{{ item.describe }}</span>
-              <a slot="title" style="text-align: center; display: block" @click="edit(item)">{{ item.name }}</a>
+              <span slot="description" style="text-align: center; display: block;">{{ item.describe }}</span>
+              <a slot="title" style="text-align: center; display: block;" @click="edit(item)">{{ item.name }}</a>
             </a-list-item-meta>
           </a-list-item>
         </a-list>
       </a-col>
       <a-col :md="20">
-        <div style="max-width: 800px">
+        <div style="max-width: 800px;">
           <a-divider v-if="isMobile()" />
           <div v-if="mdl.id">
             <h3>角色：{{ mdl.name }}</h3>
           </div>
           <a-form :form="form" :layout="isMobile() ? 'vertical' : 'horizontal'">
             <a-form-item label="唯一键">
-              <a-input v-decorator="[ 'id', {rules: [{ required: true, message: 'Please input unique key!' }]} ]" placeholder="请填写唯一键" />
+              <a-input
+                v-decorator="['id', { rules: [{ required: true, message: 'Please input unique key!' }] }]"
+                placeholder="请填写唯一键"
+              />
             </a-form-item>
 
             <a-form-item label="角色名称">
-              <a-input v-decorator="[ 'name', {rules: [{ required: true, message: 'Please input role name!' }]} ]" placeholder="请填写角色名称" />
+              <a-input
+                v-decorator="['name', { rules: [{ required: true, message: 'Please input role name!' }] }]"
+                placeholder="请填写角色名称"
+              />
             </a-form-item>
 
             <a-form-item label="状态">
-              <a-select v-decorator="[ 'status', {rules: []} ]">
+              <a-select v-decorator="['status', { rules: [] }]">
                 <a-select-option :value="1">正常</a-select-option>
                 <a-select-option :value="2">禁用</a-select-option>
               </a-select>
             </a-form-item>
 
             <a-form-item label="备注说明">
-              <a-textarea :row="3" v-decorator="[ 'describe', {rules: [{ required: true, message: 'Please input role name!' }]} ]" placeholder="请填写角色名称" />
+              <a-textarea
+                v-decorator="['describe', { rules: [{ required: true, message: 'Please input role name!' }] }]"
+                :row="3"
+                placeholder="请填写角色名称"
+              />
             </a-form-item>
 
             <a-form-item label="拥有权限">
-              <a-row :gutter="16" v-for="(permission, index) in permissions" :key="index">
-                <a-col :xl="4" :lg="24">
-                  {{ permission.name }}：
-                </a-col>
+              <a-row v-for="(permission, index) in permissions" :key="index" :gutter="16">
+                <a-col :xl="4" :lg="24">{{ permission.name }}：</a-col>
                 <a-col :xl="20" :lg="24">
                   <a-checkbox
                     v-if="permission.actionsOptions.length > 0"
                     :indeterminate="permission.indeterminate"
                     :checked="permission.checkedAll"
-                    @change="onChangeCheckAll($event, permission)">
+                    @change="onChangeCheckAll($event, permission)"
+                  >
                     全选
                   </a-checkbox>
-                  <a-checkbox-group :options="permission.actionsOptions" v-model="permission.selected" @change="onChangeCheck(permission)" />
+                  <a-checkbox-group
+                    v-model="permission.selected"
+                    :options="permission.actionsOptions"
+                    @change="onChangeCheck(permission)"
+                  />
                 </a-col>
               </a-row>
             </a-form-item>
-
           </a-form>
         </div>
       </a-col>
@@ -70,9 +82,9 @@ import pick from 'lodash.pick'
 
 export default {
   name: 'RoleList',
-  mixins: [mixinDevice],
   components: {},
-  data () {
+  mixins: [mixinDevice],
+  data() {
     return {
       form: this.$form.createForm(this),
       mdl: {},
@@ -81,8 +93,8 @@ export default {
       permissions: []
     }
   },
-  created () {
-    getRoleList().then((res) => {
+  created() {
+    getRoleList().then(res => {
       this.roles = res.result.data
       this.roles.push({
         id: '-1',
@@ -94,15 +106,15 @@ export default {
     this.loadPermissions()
   },
   methods: {
-    callback (val) {
+    callback(val) {
       console.log(val)
     },
 
-    add () {
+    add() {
       this.edit({ id: 0 })
     },
 
-    edit (record) {
+    edit(record) {
       this.mdl = Object.assign({}, record)
       // 有权限表，处理勾选
       if (this.mdl.permissions && this.permissions) {
@@ -129,11 +141,12 @@ export default {
       console.log('this.mdl', this.mdl)
     },
 
-    onChangeCheck (permission) {
-      permission.indeterminate = !!permission.selected.length && (permission.selected.length < permission.actionsOptions.length)
+    onChangeCheck(permission) {
+      permission.indeterminate =
+        !!permission.selected.length && permission.selected.length < permission.actionsOptions.length
       permission.checkedAll = permission.selected.length === permission.actionsOptions.length
     },
-    onChangeCheckAll (e, permission) {
+    onChangeCheckAll(e, permission) {
       console.log('permission:', permission)
 
       Object.assign(permission, {
@@ -142,7 +155,7 @@ export default {
         checkedAll: e.target.checked
       })
     },
-    loadPermissions () {
+    loadPermissions() {
       getPermissions().then(res => {
         const result = res.result
         this.permissions = result.map(permission => {
@@ -164,6 +177,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

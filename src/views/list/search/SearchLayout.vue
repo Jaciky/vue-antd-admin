@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'SearchLayout',
-  data () {
+  data() {
     return {
       tabs: {
         items: [
@@ -36,7 +36,7 @@ export default {
               return '1'
           }
         },
-        callback: (key) => {
+        callback: key => {
           switch (key) {
             case '1':
               this.$router.push('/list/search/article')
@@ -55,24 +55,21 @@ export default {
       search: true
     }
   },
-  computed: {
-
-  },
-  methods: {
-  }
+  computed: {},
+  methods: {}
 }
 </script>
 
 <style lang="less" scoped>
-  .search-head{
-    background-color: #fff;
-    margin: -25px -24px -24px;
-    .search-input{
-      text-align: center;
-      margin-bottom: 16px;
-    }
+.search-head {
+  background-color: #fff;
+  margin: -25px -24px -24px;
+  .search-input {
+    text-align: center;
+    margin-bottom: 16px;
   }
-  .search-content{
-    margin-top: 48px;
-  }
+}
+.search-content {
+  margin-top: 48px;
+}
 </style>

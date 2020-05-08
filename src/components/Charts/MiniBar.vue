@@ -29,19 +29,22 @@ const tooltip = [
   })
 ]
 
-const scale = [{
-  dataKey: 'x',
-  min: 2
-}, {
-  dataKey: 'y',
-  title: '时间',
-  min: 1,
-  max: 30
-}]
+const scale = [
+  {
+    dataKey: 'x',
+    min: 2
+  },
+  {
+    dataKey: 'y',
+    title: '时间',
+    min: 1,
+    max: 30
+  }
+]
 
 export default {
   name: 'MiniBar',
-  data () {
+  data() {
     return {
       data,
       tooltip,
@@ -53,5 +56,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import "chart";
+@import 'chart';
 </style>

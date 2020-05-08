@@ -24,7 +24,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       openKeys: [],
       selectedKeys: [],
@@ -38,11 +38,11 @@ export default {
       return keys
     }
   },
-  mounted () {
+  mounted() {
     this.updateMenu()
   },
   watch: {
-    collapsed (val) {
+    collapsed(val) {
       if (val) {
         this.cachedOpenKeys = this.openKeys.concat()
         this.openKeys = []
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     // select menu item
-    onOpenChange (openKeys) {
+    onOpenChange(openKeys) {
       // 在水平模式下时执行，并且不再执行后续
       if (this.mode === 'horizontal') {
         this.openKeys = openKeys
@@ -70,11 +70,11 @@ export default {
         this.openKeys = latestOpenKey ? [latestOpenKey] : []
       }
     },
-    onSelect ({ item, key, selectedKeys }) {
+    onSelect({ item, key, selectedKeys }) {
       this.selectedKeys = selectedKeys
       this.$emit('select', { item, key, selectedKeys })
     },
-    updateMenu () {
+    updateMenu() {
       const routes = this.$route.matched.concat()
       const { hidden } = this.$route.meta
       if (routes.length >= 3 && hidden) {
@@ -94,15 +94,15 @@ export default {
     },
 
     // render
-    renderItem (menu) {
+    renderItem(menu) {
       if (!menu.hidden) {
         return menu.children && !menu.hideChildrenInMenu ? this.renderSubMenu(menu) : this.renderMenuItem(menu)
       }
       return null
     },
-    renderMenuItem (menu) {
+    renderMenuItem(menu) {
       const target = menu.meta.target || null
-      const CustomTag = target && 'a' || 'router-link'
+      const CustomTag = (target && 'a') || 'router-link'
       const props = { to: { name: menu.name } }
       const attrs = { href: menu.path, target: menu.meta.target }
 
@@ -124,7 +124,7 @@ export default {
         </Menu.Item>
       )
     },
-    renderSubMenu (menu) {
+    renderSubMenu(menu) {
       const itemArr = []
       if (!menu.hideChildrenInMenu) {
         menu.children.forEach(item => itemArr.push(this.renderItem(item)))
@@ -139,19 +139,17 @@ export default {
         </Menu.SubMenu>
       )
     },
-    renderIcon (icon) {
+    renderIcon(icon) {
       if (icon === 'none' || icon === undefined) {
         return null
       }
       const props = {}
-      typeof (icon) === 'object' ? props.component = icon : props.type = icon
-      return (
-        <Icon {... { props } }/>
-      )
+      typeof icon === 'object' ? (props.component = icon) : (props.type = icon)
+      return <Icon {...{ props }} />
     }
   },
 
-  render () {
+  render() {
     const dynamicProps = {
       props: {
         mode: this.mode,
@@ -172,6 +170,6 @@ export default {
       return this.renderItem(item)
     })
 
-    return (<Menu {...dynamicProps}>{menuTree}</Menu>)
+    return <Menu {...dynamicProps}>{menuTree}</Menu>
   }
 }

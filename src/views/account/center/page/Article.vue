@@ -1,11 +1,5 @@
 <template>
-  <a-list
-    size="large"
-    rowKey="id"
-    :loading="loading"
-    itemLayout="vertical"
-    :dataSource="data"
-  >
+  <a-list size="large" row-key="id" :loading="loading" item-layout="vertical" :data-source="data">
     <a-list-item :key="item.id" slot="renderItem" slot-scope="item">
       <template slot="actions">
         <icon-text type="star-o" :text="item.star" />
@@ -22,10 +16,16 @@
           </span>
         </template>
       </a-list-item-meta>
-      <article-list-content :description="item.description" :owner="item.owner" :avatar="item.avatar" :href="item.href" :updateAt="item.updatedAt" />
+      <article-list-content
+        :description="item.description"
+        :owner="item.owner"
+        :avatar="item.avatar"
+        :href="item.href"
+        :update-at="item.updatedAt"
+      />
     </a-list-item>
-    <div slot="footer" v-if="data.length > 0" style="text-align: center; margin-top: 16px;">
-      <a-button @click="loadMore" :loading="loadingMore">加载更多</a-button>
+    <div v-if="data.length > 0" slot="footer" style="text-align: center; margin-top: 16px;">
+      <a-button :loading="loadingMore" @click="loadMore">加载更多</a-button>
     </div>
   </a-list>
 </template>
@@ -40,36 +40,37 @@ export default {
     IconText,
     ArticleListContent
   },
-  data () {
+  data() {
     return {
       loading: true,
       loadingMore: false,
       data: []
     }
   },
-  mounted () {
+  mounted() {
     this.getList()
   },
   methods: {
-    getList () {
+    getList() {
       this.$http.get('/list/article').then(res => {
         console.log('res', res)
         this.data = res.result
         this.loading = false
       })
     },
-    loadMore () {
+    loadMore() {
       this.loadingMore = true
-      this.$http.get('/list/article').then(res => {
-        this.data = this.data.concat(res.result)
-      }).finally(() => {
-        this.loadingMore = false
-      })
+      this.$http
+        .get('/list/article')
+        .then(res => {
+          this.data = this.data.concat(res.result)
+        })
+        .finally(() => {
+          this.loadingMore = false
+        })
     }
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

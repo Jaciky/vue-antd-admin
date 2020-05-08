@@ -17,12 +17,15 @@
           </a-row>
           <a-row>
             <a-col :sm="8" :xs="24">转账金额：</a-col>
-            <a-col :sm="16" :xs="24"><span class="money">500</span> 元</a-col>
+            <a-col :sm="16" :xs="24">
+              <span class="money">500</span>
+              元
+            </a-col>
           </a-row>
         </div>
         <div slot="action">
           <a-button type="primary" @click="finish">再转一笔</a-button>
-          <a-button style="margin-left: 8px" @click="toOrderList">查看账单</a-button>
+          <a-button style="margin-left: 8px;" @click="toOrderList">查看账单</a-button>
         </div>
       </result>
     </a-form>
@@ -37,33 +40,33 @@ export default {
   components: {
     Result
   },
-  data () {
+  data() {
     return {
       loading: false
     }
   },
   methods: {
-    finish () {
+    finish() {
       this.$emit('finish')
     },
-    toOrderList () {
+    toOrderList() {
       this.$router.push('/list/table-list')
     }
   }
 }
 </script>
 <style lang="less" scoped>
-  .information {
-    line-height: 22px;
+.information {
+  line-height: 22px;
 
-    .ant-row:not(:last-child) {
-      margin-bottom: 24px;
-    }
+  .ant-row:not(:last-child) {
+    margin-bottom: 24px;
   }
-  .money {
-    font-family: "Helvetica Neue",sans-serif;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 14px;
-  }
+}
+.money {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 14px;
+}
 </style>

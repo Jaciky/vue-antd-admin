@@ -78,8 +78,8 @@
     <a-divider>Ellipsis</a-divider>
     <a-card style="margin-bottom: 3rem;">
       <ellipsis :length="100" tooltip>
-        There were injuries alleged in three cases in 2015, and a fourth incident in September, according to the safety recall report. After meeting with US regulators in October, the firm decided to
-        issue a voluntary recall.
+        There were injuries alleged in three cases in 2015, and a fourth incident in September, according to the safety
+        recall report. After meeting with US regulators in October, the firm decided to issue a voluntary recall.
       </ellipsis>
     </a-card>
 
@@ -123,7 +123,9 @@
         <description-list-item term="角色码">1234567</description-list-item>
         <description-list-item term="所属部门">XX公司-YY部</description-list-item>
         <description-list-item term="过期时间">2018-08-08</description-list-item>
-        <description-list-item term="描述">这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...</description-list-item>
+        <description-list-item term="描述">
+          这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...
+        </description-list-item>
       </description-list>
     </a-card>
 
@@ -181,7 +183,8 @@ export default {
     onEndHandle2() {
       this.$notification.open({
         message: 'Notification Title',
-        description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.'
+        description:
+          'This is the content of the notification. This is the content of the notification. This is the content of the notification.'
       })
     },
     getTagCloudData() {

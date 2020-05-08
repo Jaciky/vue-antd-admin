@@ -3,17 +3,26 @@
     <div v-if="visible" class="header-animat">
       <a-layout-header
         v-if="visible"
-        :class="[fixedHeader && 'ant-header-fixedHeader', sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed', ]"
-        :style="{ padding: '0' }">
+        :class="[
+          fixedHeader && 'ant-header-fixedHeader',
+          sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed'
+        ]"
+        :style="{ padding: '0' }"
+      >
         <div v-if="mode === 'sidemenu'" class="header">
-          <a-icon v-if="device==='mobile'" class="trigger" :type="collapsed ? 'menu-fold' : 'menu-unfold'" @click="toggle"/>
-          <a-icon v-else class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'" @click="toggle"/>
+          <a-icon
+            v-if="device === 'mobile'"
+            class="trigger"
+            :type="collapsed ? 'menu-fold' : 'menu-unfold'"
+            @click="toggle"
+          />
+          <a-icon v-else class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'" @click="toggle" />
           <user-menu></user-menu>
         </div>
         <div v-else :class="['top-nav-header-index', theme]">
           <div class="header-index-wide">
             <div class="header-index-left">
-              <logo class="top-nav-header" :show-title="device !== 'mobile'"/>
+              <logo class="top-nav-header" :show-title="device !== 'mobile'" />
               <s-menu v-if="device !== 'mobile'" mode="horizontal" :menu="menus" :theme="theme" />
               <a-icon v-else class="trigger" :type="collapsed ? 'menu-fold' : 'menu-unfold'" @click="toggle" />
             </div>
@@ -65,17 +74,20 @@ export default {
       default: 'desktop'
     }
   },
-  data () {
+  data() {
     return {
       visible: true,
       oldScrollTop: 0
     }
   },
-  mounted () {
+  mounted() {
     document.addEventListener('scroll', this.handleScroll, { passive: true })
   },
+  beforeDestroy() {
+    document.body.removeEventListener('scroll', this.handleScroll, true)
+  },
   methods: {
-    handleScroll () {
+    handleScroll() {
       if (!this.autoHideHeader) {
         return
       }
@@ -96,12 +108,9 @@ export default {
         })
       }
     },
-    toggle () {
+    toggle() {
       this.$emit('toggle')
     }
-  },
-  beforeDestroy () {
-    document.body.removeEventListener('scroll', this.handleScroll, true)
   }
 }
 </script>
@@ -109,7 +118,7 @@ export default {
 <style lang="less">
 @import '../index.less';
 
-.header-animat{
+.header-animat {
   position: relative;
   z-index: @ant-global-header-zindex;
 }
@@ -119,7 +128,8 @@ export default {
 .showHeader-leave-active {
   transition: all 0.5s ease;
 }
-.showHeader-enter, .showHeader-leave-to {
+.showHeader-enter,
+.showHeader-leave-to {
   opacity: 0;
 }
 </style>

@@ -1,6 +1,14 @@
 <template>
   <div class="setting-drawer">
-    <a-drawer width="300" placement="right" :closable="false" :visible="visible" :drawer-style="{ position: 'absolute' }" style="position: absolute;" @close="onClose">
+    <a-drawer
+      width="300"
+      placement="right"
+      :closable="false"
+      :visible="visible"
+      :drawer-style="{ position: 'absolute' }"
+      style="position: absolute;"
+      @close="onClose"
+    >
       <div class="setting-drawer-index-content">
         <div :style="{ marginBottom: '24px' }">
           <h3 class="setting-drawer-index-title">整体风格设置</h3>
@@ -83,7 +91,12 @@
                   <template slot="title">
                     该设定仅 [顶部栏导航] 时有效
                   </template>
-                  <a-select size="small" style="width: 80px;" :defaultValue="contentWidth" @change="handleContentWidthChange">
+                  <a-select
+                    size="small"
+                    style="width: 80px;"
+                    :default-value="contentWidth"
+                    @change="handleContentWidthChange"
+                  >
                     <a-select-option value="Fixed">固定</a-select-option>
                     <a-select-option v-if="layoutMode !== 'sidemenu'" value="Fluid">流式</a-select-option>
                   </a-select>
@@ -93,13 +106,19 @@
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="fixedHeader" @change="handleFixedHeader" />
+                <a-switch slot="actions" size="small" :default-checked="fixedHeader" @change="handleFixedHeader" />
                 <a-list-item-meta>
                   <div slot="title">固定 Header</div>
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :disabled="!fixedHeader" :defaultChecked="autoHideHeader" @change="handleFixedHeaderHidden" />
+                <a-switch
+                  slot="actions"
+                  size="small"
+                  :disabled="!fixedHeader"
+                  :default-checked="autoHideHeader"
+                  @change="handleFixedHeaderHidden"
+                />
                 <a-list-item-meta>
                   <a-tooltip slot="title" placement="left">
                     <template slot="title">固定 Header 时可配置</template>
@@ -108,9 +127,17 @@
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :disabled="(layoutMode === 'topmenu')" :defaultChecked="fixSiderbar" @change="handleFixSiderbar" />
+                <a-switch
+                  slot="actions"
+                  size="small"
+                  :disabled="(layoutMode === 'topmenu')"
+                  :default-checked="fixSiderbar"
+                  @change="handleFixSiderbar"
+                />
                 <a-list-item-meta>
-                  <div slot="title" :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }">固定侧边菜单</div>
+                  <div slot="title" :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }">
+                    固定侧边菜单
+                  </div>
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
@@ -123,13 +150,13 @@
           <div>
             <a-list :split="false">
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="colorWeak" @change="onColorWeak" />
+                <a-switch slot="actions" size="small" :default-checked="colorWeak" @change="onColorWeak" />
                 <a-list-item-meta>
                   <div slot="title">色弱模式</div>
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="multiTab" @change="onMultiTab" />
+                <a-switch slot="actions" size="small" :default-checked="multiTab" @change="onMultiTab" />
                 <a-list-item-meta>
                   <div slot="title">多页签模式</div>
                 </a-list-item-meta>
@@ -143,7 +170,12 @@
           <a-alert type="warning" :style="{ marginTop: '24px' }">
             <span slot="message">
               配置栏只在开发环境用于预览，生产环境不会展现，请手动修改配置文件。修改配置文件后，需要清空本地缓存和LocalStorage
-              <a href="https://github.com/sendya/ant-design-pro-vue/blob/master/src/config/defaultSettings.js" target="_blank">src/config/defaultSettings.js</a>
+              <a
+                href="https://github.com/sendya/ant-design-pro-vue/blob/master/src/config/defaultSettings.js"
+                target="_blank"
+              >
+                src/config/defaultSettings.js
+              </a>
             </span>
           </a-alert>
         </div>

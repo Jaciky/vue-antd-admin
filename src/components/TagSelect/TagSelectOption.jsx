@@ -17,13 +17,13 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       localChecked: this.checked || false
     }
   },
   watch: {
-    'checked' (val) {
+    checked(val) {
       this.localChecked = val
     },
     '$parent.items': {
@@ -33,13 +33,15 @@ export default {
       deep: true
     }
   },
-  render () {
+  render() {
     const { $slots, value } = this
-    const onChange = (checked) => {
+    const onChange = checked => {
       this.$emit('change', { value, checked })
     }
-    return (<CheckableTag key={value} vModel={this.localChecked} onChange={onChange}>
-      {$slots.default}
-    </CheckableTag>)
+    return (
+      <CheckableTag key={value} vModel={this.localChecked} onChange={onChange}>
+        {$slots.default}
+      </CheckableTag>
+    )
   }
 }

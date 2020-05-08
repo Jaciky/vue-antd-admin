@@ -22,11 +22,18 @@
             2016-12-12 ~ 2017-12-12
           </a-col>
         </a-row>
-        <a-steps :current="1" :direction="(isMobile() && directionType.vertical) || directionType.horizontal" progressDot>
+        <a-steps
+          :current="1"
+          :direction="(isMobile() && directionType.vertical) || directionType.horizontal"
+          progress-dot
+        >
           <a-step>
             <span slot="title" style="font-size: 14px;">创建项目</span>
             <template slot="description">
-              <div slot="description" style="fontsize: 12px; color: rgba(0, 0, 0, 0.45); position: relative; left: 42px; text-align: left;">
+              <div
+                slot="description"
+                style="fontsize: 12px; color: rgba(0, 0, 0, 0.45); position: relative; left: 42px; text-align: left;"
+              >
                 <div style="margin: 8px 0 4px;">
                   曲丽丽
                   <a-icon style="margin-left: 8px;" type="dingding-o" />
@@ -38,7 +45,10 @@
           <a-step title="部门初审">
             <span slot="title" style="font-size: 14px;">部门初审</span>
             <template slot="description">
-              <div slot="description" style="fontsize: 12px; color: rgba(0, 0, 0, 0.45); position: relative; left: 42px; text-align: left;">
+              <div
+                slot="description"
+                style="fontsize: 12px; color: rgba(0, 0, 0, 0.45); position: relative; left: 42px; text-align: left;"
+              >
                 <div style="margin: 8px 0 4px;">
                   周毛毛
                   <a-icon style="margin-left: 8px; color: #00a0e9;" type="dingding-o" />

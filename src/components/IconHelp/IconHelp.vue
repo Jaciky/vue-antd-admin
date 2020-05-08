@@ -4,7 +4,7 @@
       <span>{{ title }}</span>
     </template>
     <slot>
-      <a-icon type="question-circle" style="color: rgba(0,0,0,.40);" />
+      <a-icon type="question-circle" style="color: rgba(0, 0, 0, 0.4);" />
     </slot>
   </a-tooltip>
 </template>

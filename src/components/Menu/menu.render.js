@@ -26,7 +26,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       openKeys: [],
       selectedKeys: [],
@@ -40,11 +40,11 @@ export default {
       return keys
     }
   },
-  created () {
+  created() {
     this.updateMenu()
   },
   watch: {
-    collapsed (val) {
+    collapsed(val) {
       if (val) {
         this.cachedOpenKeys = this.openKeys.concat()
         this.openKeys = []
@@ -62,7 +62,7 @@ export default {
         return null
       }
       const props = {}
-      typeof (icon) === 'object' ? props.component = icon : props.type = icon
+      typeof icon === 'object' ? (props.component = icon) : (props.type = icon)
       return h(Icon, { props: { ...props } })
     },
     renderMenuItem: function (h, menu, pIndex, index) {
@@ -104,7 +104,7 @@ export default {
       })
       return menuArr
     },
-    onOpenChange (openKeys) {
+    onOpenChange(openKeys) {
       const latestOpenKey = openKeys.find(key => !this.openKeys.includes(key))
       if (!this.rootSubmenuKeys.includes(latestOpenKey)) {
         this.openKeys = openKeys
@@ -112,7 +112,7 @@ export default {
         this.openKeys = latestOpenKey ? [latestOpenKey] : []
       }
     },
-    updateMenu () {
+    updateMenu() {
       const routes = this.$route.matched.concat()
 
       if (routes.length >= 4 && this.$route.meta.hidden) {
@@ -132,7 +132,7 @@ export default {
       this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
     }
   },
-  render (h) {
+  render(h) {
     return h(
       Menu,
       {
