@@ -28,7 +28,7 @@ const user = {
       state.id = id
     },
     SET_AVATAR: (state, avatar) => {
-      state.avatar = '/vue-antd-admin' + avatar
+      state.avatar = avatar
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
