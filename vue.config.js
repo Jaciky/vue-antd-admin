@@ -2,10 +2,16 @@
 const path = require('path')
 const webpack = require('webpack')
 const createThemeColorReplacerPlugin = require('./config/plugin.config')
+import config from './config'
+
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
 
 const isProd = process.env.NODE_ENV === 'production'
 
 const port = process.env.port || process.env.npm_config_port || 9527 // dev port
+const title = config.title // title
 
 const assetsCDN = {
   // webpack build externals
@@ -70,7 +76,12 @@ const vueConfig = {
       })
     })
 
-    config.resolve.alias.set('@', path.resolve('src'))
+    config.plugin('html').tap(args => {
+      args[0].title = title
+      return args
+    })
+
+    config.resolve.alias.set('@', resolve('src'))
 
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
@@ -108,7 +119,7 @@ const vueConfig = {
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
-      patterns: [path.resolve(__dirname, './src/assets/styles/variables.less')]
+      patterns: [resolve(__dirname, './src/assets/styles/variables.less')]
     }
   },
 

@@ -142,7 +142,7 @@ export default {
     ...mapGetters(['nickname', 'avatar']),
 
     getTeams() {
-      getTeams('/workplace/teams').then(res => {
+      getTeams().then(res => {
         this.teams = res.result
         this.teamSpinning = false
       })
