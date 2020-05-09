@@ -29,7 +29,7 @@ export function getActivity() {
 
 export function getTeams() {
   return axios({
-    url: api.Projects,
+    url: api.Teams,
     method: 'get'
   })
 }
@@ -40,4 +40,3 @@ export function getRadar() {
     method: 'get'
   })
 }
-

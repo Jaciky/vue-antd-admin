@@ -96,6 +96,7 @@
 <script>
 import { PageView, RouteView } from '@/layouts'
 import { AppPage, ArticlePage, ProjectPage } from './page'
+import { getTeams } from '@/api/dashboard'
 
 import { mapGetters } from 'vuex'
 
@@ -141,7 +142,7 @@ export default {
     ...mapGetters(['nickname', 'avatar']),
 
     getTeams() {
-      this.$http.get('/workplace/teams').then(res => {
+      getTeams('/workplace/teams').then(res => {
         this.teams = res.result
         this.teamSpinning = false
       })
