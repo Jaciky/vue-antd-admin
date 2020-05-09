@@ -2,7 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const createThemeColorReplacerPlugin = require('./config/plugin.config')
-import config from './config'
+// const defaultConfig = require('./config')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -11,7 +11,7 @@ function resolve(dir) {
 const isProd = process.env.NODE_ENV === 'production'
 
 const port = process.env.port || process.env.npm_config_port || 9527 // dev port
-const title = config.title // title
+const title = 'Vue Antd Admin' // title
 
 const assetsCDN = {
   // webpack build externals

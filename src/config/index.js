@@ -12,8 +12,7 @@
  * storageOptions: {} - Vue-ls 插件配置项 (localStorage/sessionStorage)
  *
  */
-
-export default {
+const config = {
   title: 'Vue Antd Admin', // 配置显示在浏览器标签的title
   tokenExpires: 7 * 24 * 60 * 60 * 1000, // token本地存储时间，默认7天 单位：mm
   tagsView: true, // 快速导航标签是否显示
@@ -36,3 +35,5 @@ export default {
     storage: 'local' // storage name session, local, memory
   }
 }
+
+export default config
