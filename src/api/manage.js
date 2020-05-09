@@ -1,12 +1,15 @@
-import { axios } from '@/utils/request'
+import axios from '@/utils/request'
+
+// 本地调试api前缀
+const LOCAL_API_PREFIX = ''
 
 const api = {
-  user: '/user',
-  role: '/role',
-  service: '/service',
-  permission: '/permission',
-  permissionNoPager: '/permission/no-pager',
-  orgTree: '/org/tree'
+  user: `${LOCAL_API_PREFIX}/user`,
+  role: `${LOCAL_API_PREFIX}/role`,
+  service: `${LOCAL_API_PREFIX}/service`,
+  permission: `${LOCAL_API_PREFIX}/permission`,
+  permissionNoPager: `${LOCAL_API_PREFIX}/permission/no-pager`,
+  orgTree: `${LOCAL_API_PREFIX}/org/tree`
 }
 
 export default api

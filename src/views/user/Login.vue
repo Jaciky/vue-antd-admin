@@ -7,13 +7,7 @@
         @change="handleTabClick"
       >
         <a-tab-pane key="tab1" tab="账号密码登录">
-          <a-alert
-            v-if="isLoginError"
-            type="error"
-            show-icon
-            style="margin-bottom: 24px;"
-            message="账户或密码错误（admin/ant.design )"
-          />
+          <a-alert v-if="isLoginError" type="error" show-icon style="margin-bottom: 24px;" message="账户或密码错误" />
           <a-form-item>
             <a-input
               v-decorator="[
@@ -40,7 +34,7 @@
               size="large"
               type="password"
               autocomplete="false"
-              placeholder="密码: admin or ant.design"
+              placeholder="密码: 123456"
             >
               <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
@@ -142,7 +136,7 @@ import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
-import { getSmsCaptcha, get2step } from '@/api/login'
+import { getSmsCaptcha, get2step } from '@/api/user'
 
 export default {
   components: {

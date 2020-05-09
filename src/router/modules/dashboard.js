@@ -31,7 +31,7 @@ export default {
       path: 'test-work',
       name: 'TestWork',
       component: () => import('@/views/dashboard/TestWork'),
-      meta: { title: '测试功能', keepAlive: true }
+      meta: { title: '测试功能', keepAlive: true, permission: [100, 120] }
     }
   ]
 }

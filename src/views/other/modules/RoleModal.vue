@@ -22,9 +22,8 @@
 </template>
 
 <script>
-import { getPermissions } from '@/api/manage'
-import { actionToObject } from '@/utils/permissions'
-import pick from 'lodash.pick'
+// import { getPermissions } from '@/api/manage'
+// import { actionToObject } from '@/utils/permissions'
 
 export default {
   name: 'RoleModal',
@@ -71,7 +70,7 @@ export default {
       }
 
       this.$nextTick(() => {
-        this.form.setFieldsValue(pick(this.mdl, 'id', 'name', 'status', 'describe'))
+        this.form.setFieldsValue(this.$g.pick(this.mdl, 'id', 'name', 'status', 'describe'))
       })
       console.log('this.mdl', this.mdl)
     },
@@ -124,22 +123,22 @@ export default {
     },
     loadPermissions() {
       const that = this
-      getPermissions().then(res => {
-        const result = res.result
-        that.permissions = result.map(permission => {
-          const options = actionToObject(permission.actionData)
-          permission.checkedAll = false
-          permission.selected = []
-          permission.indeterminate = false
-          permission.actionsOptions = options.map(option => {
-            return {
-              label: option.describe,
-              value: option.action
-            }
-          })
-          return permission
-        })
-      })
+      // getPermissions().then(res => {
+      //   const result = res.result
+      //   that.permissions = result.map(permission => {
+      //     const options = actionToObject(permission.actionData)
+      //     permission.checkedAll = false
+      //     permission.selected = []
+      //     permission.indeterminate = false
+      //     permission.actionsOptions = options.map(option => {
+      //       return {
+      //         label: option.describe,
+      //         value: option.action
+      //       }
+      //     })
+      //     return permission
+      //   })
+      // })
     }
   }
 }

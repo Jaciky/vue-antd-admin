@@ -15,7 +15,7 @@
 
 export default {
   title: 'Vue Antd Admin', // 配置显示在浏览器标签的title
-  cookieExpires: 7, // token在Cookie中存储的天数，默认7天
+  tokenExpires: 7 * 24 * 60 * 60 * 1000, // token本地存储时间，默认7天 单位：mm
   tagsView: true, // 快速导航标签是否显示
   path: '/', // 默认地址
   maxCached: 10, // 最大缓存页面数量

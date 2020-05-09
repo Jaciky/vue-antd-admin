@@ -77,8 +77,7 @@
 <script>
 import { getRoleList, getPermissions } from '@/api/manage'
 import { mixinDevice } from '@/utils/mixin'
-import { actionToObject } from '@/utils/permissions'
-import pick from 'lodash.pick'
+// import { actionToObject } from '@/utils/permissions'
 
 export default {
   name: 'RoleList',
@@ -136,7 +135,7 @@ export default {
       }
 
       this.$nextTick(() => {
-        this.form.setFieldsValue(pick(this.mdl, 'id', 'name', 'status', 'describe'))
+        this.form.setFieldsValue(this.$g.pick(this.mdl, 'id', 'name', 'status', 'describe'))
       })
       console.log('this.mdl', this.mdl)
     },
@@ -156,22 +155,22 @@ export default {
       })
     },
     loadPermissions() {
-      getPermissions().then(res => {
-        const result = res.result
-        this.permissions = result.map(permission => {
-          const options = actionToObject(permission.actionData)
-          permission.checkedAll = false
-          permission.selected = []
-          permission.indeterminate = false
-          permission.actionsOptions = options.map(option => {
-            return {
-              label: option.describe,
-              value: option.action
-            }
-          })
-          return permission
-        })
-      })
+      // getPermissions().then(res => {
+      //   const result = res.result
+      //   this.permissions = result.map(permission => {
+      //     const options = actionToObject(permission.actionData)
+      //     permission.checkedAll = false
+      //     permission.selected = []
+      //     permission.indeterminate = false
+      //     permission.actionsOptions = options.map(option => {
+      //       return {
+      //         label: option.describe,
+      //         value: option.action
+      //       }
+      //     })
+      //     return permission
+      //   })
+      // })
     }
   }
 }

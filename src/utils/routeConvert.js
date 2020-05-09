@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from '@/core/global'
 
 export function convertRoutes(nodes) {
   if (!nodes) return null

@@ -73,7 +73,6 @@
 </template>
 
 <script>
-import pick from 'lodash.pick'
 
 const stepForms = [
   ['name', 'desc'],
@@ -105,7 +104,8 @@ export default {
     edit(record) {
       this.visible = true
       const {
-        form: { setFieldsValue }
+        form: { setFieldsValue },
+        $g: { pick }
       } = this
       this.$nextTick(() => {
         setFieldsValue(pick(record, []))

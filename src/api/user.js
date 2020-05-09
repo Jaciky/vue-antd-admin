@@ -1,5 +1,21 @@
-import api from './index'
-import { axios } from '@/utils/request'
+import axios from '@/utils/request'
+
+// 本地调试api前缀
+const LOCAL_API_PREFIX = ''
+
+const api = {
+  Login: `${LOCAL_API_PREFIX}/auth/login`,
+  Logout: `${LOCAL_API_PREFIX}/auth/logout`,
+  ForgePassword: `${LOCAL_API_PREFIX}/auth/forge-password`,
+  Register: `${LOCAL_API_PREFIX}/auth/register`,
+  TwoStepCode: `${LOCAL_API_PREFIX}/auth/2step-code`,
+  SendSms: `${LOCAL_API_PREFIX}/account/sms`,
+  SendSmsErr: `${LOCAL_API_PREFIX}/account/sms_err`,
+  UserInfo: `${LOCAL_API_PREFIX}/user/info`,
+  Permissions: `${LOCAL_API_PREFIX}/user/permissions`
+}
+
+export default api
 
 /**
  * login func
@@ -54,14 +70,14 @@ export function logout() {
  */
 export function get2step(parameter) {
   return axios({
-    url: api.twoStepCode,
+    url: api.TwoStepCode,
     method: 'post',
     data: parameter
   })
 }
 
 /**
- * @description 获取用户权限id集合
+ * 获取用户权限id集合
  */
 export const getPermission = () => {
   return axios({

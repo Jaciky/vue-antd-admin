@@ -142,10 +142,9 @@
 </template>
 
 <script>
-import pick from 'lodash.pick'
 import { STable } from '@/components'
 import { getRoleList, getServiceList } from '@/api/manage'
-import { PERMISSION_ENUM } from '@/utils/helper/permission'
+// import { PERMISSION_ENUM } from '@/utils/helper/permission'
 
 const STATUS = {
   1: '启用',
@@ -190,8 +189,8 @@ export default {
       return STATUS[key]
     },
     permissionFilter(key) {
-      const permission = PERMISSION_ENUM[key]
-      return permission && permission.label
+      // const permission = PERMISSION_ENUM[key]
+      // return permission && permission.label
     }
   },
   data() {
@@ -281,7 +280,7 @@ export default {
         console.log('permissions', this.permissions)
         console.log('checkboxGroup', checkboxGroup)
 
-        this.form.setFieldsValue(pick(record, ['id', 'status', 'describe', 'name']))
+        this.form.setFieldsValue(this.$g.pick(record, ['id', 'status', 'describe', 'name']))
         this.form.setFieldsValue(checkboxGroup)
       })
     },

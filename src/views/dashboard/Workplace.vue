@@ -130,6 +130,7 @@ import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
 
 import { getRoleList, getServiceList } from '@/api/manage'
+import { getProjects, getActivity, getTeams, getRadar } from '@/api/dashboard'
 
 const DataSet = require('@antv/data-set')
 
@@ -222,25 +223,25 @@ export default {
   },
   methods: {
     getProjects() {
-      this.$http.get('/list/search/projects').then(res => {
+      getProjects().then(res => {
         this.projects = res.result && res.result.data
         this.loading = false
       })
     },
     getActivity() {
-      this.$http.get('/workplace/activity').then(res => {
+      getActivity().then(res => {
         this.activities = res.result
       })
     },
     getTeams() {
-      this.$http.get('/workplace/teams').then(res => {
+      getTeams().then(res => {
         this.teams = res.result
       })
     },
     initRadar() {
       this.radarLoading = true
 
-      this.$http.get('/workplace/radar').then(res => {
+      getRadar('/workplace/radar').then(res => {
         const dv = new DataSet.View().source(res.result)
         dv.transform({
           type: 'fold',

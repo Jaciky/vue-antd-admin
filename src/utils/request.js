@@ -2,13 +2,12 @@ import Vue from 'vue'
 import axios from 'axios'
 import store from '@/store'
 import notification from 'ant-design-vue/es/notification'
-import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 // 创建 axios 实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
-  timeout: 6000 // 请求超时时间
+  timeout: 6 * 1000 // 请求超时时间
 })
 
 const err = error => {
@@ -52,11 +51,4 @@ service.interceptors.response.use(response => {
   return response.data
 }, err)
 
-const installer = {
-  vm: {},
-  install(Vue) {
-    Vue.use(VueAxios, service)
-  }
-}
-
-export { installer as VueAxios, service as axios }
+export default service

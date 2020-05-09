@@ -9,7 +9,7 @@ export default {
   },
   render() {
     const {
-      $route: { meta },
+      $route: { meta = {} },
       $store: { getters }
     } = this
     const inKeep = (

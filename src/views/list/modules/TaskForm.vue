@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import pick from 'lodash.pick'
 
 export default {
   name: 'TaskForm',
@@ -48,7 +47,7 @@ export default {
   mounted() {
     console.log('this.', this.record)
     if (this.record) {
-      this.form.setFieldsValue(pick(this.record, ['taskName']))
+      this.form.setFieldsValue(this.$g.pick(this.record, ['taskName']))
     }
   },
   methods: {
