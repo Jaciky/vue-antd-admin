@@ -2,7 +2,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const createThemeColorReplacerPlugin = require('./config/plugin.config')
-// const defaultConfig = require('./config')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
