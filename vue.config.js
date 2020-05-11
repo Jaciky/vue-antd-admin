@@ -31,7 +31,7 @@ const assetsCDN = {
 }
 
 const vueConfig = {
-  publicPath: isProd ? '/vue-antd-admin/' : '/',
+  publicPath: isProd ? '/vue-antd-admin/' : './',
 
   configureWebpack: {
     // webpack plugins

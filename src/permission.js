@@ -2,6 +2,7 @@ import Vue from 'vue'
 import router from './router'
 import store from './store'
 
+import { clearPending } from '@/utils/request'
 import notification from 'ant-design-vue/es/notification'
 import config from '@/config'
 import NProgress from 'nprogress'
@@ -18,6 +19,9 @@ const domTitle = config.title
 router.beforeEach(async (to, from, next) => {
   // start progress bar
   NProgress.start()
+
+  // 清空http请求队列
+  clearPending({}, true)
 
   // 设置网页标题
   to.meta?.title && setDocumentTitle(`${to.meta.title} - ${domTitle}`)
