@@ -22,6 +22,7 @@ service.interceptors.request.use(
     // 过滤重复请求
     setTimeout(clearPending, 0, config)
 
+    console.log(config)
     // 获取本地token
     const token = Vue.ls.get(ACCESS_TOKEN)
 
@@ -51,6 +52,7 @@ const ridrectCodes = ['600', '601', '605', '612', '614', '616']
 // response interceptor
 service.interceptors.response.use(response => {
   const { data, code, config } = response
+  console.log(response)
 
   // 在请求完成后，自动移出队列
   setTimeout(clearPending, 0, config)
@@ -80,20 +82,20 @@ service.interceptors.response.use(response => {
 
 // error回调
 function httpErrorHandler(error) {
+  const { config, response } = error
+
+  // 在请求完成后，自动移出队列
+  setTimeout(clearPending, 0, config)
+
   if (axios.isCancel(error)) {
     console.log(error.message)
     return Promise.reject()
   }
 
-  const { config, response } = error
-
   notification.error({
     message: 'Forbidden',
     description: response ? '系统开小差了，请联系管理人员！' : '您的网络不稳定，请检查后重试！'
   })
-
-  // 在请求完成后，自动移出队列
-  clearPending(config)
 
   return Promise.reject(error)
 }

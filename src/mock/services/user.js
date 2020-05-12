@@ -20,13 +20,13 @@ const info = options => {
     roleId: 'admin',
     role: {}
   }
-  return builder(userInfo, '', 200)
+  return builder(userInfo, '', '200')
 }
 
 const permissions = options => {
   console.log('options', options)
   const permissions = [100, 101, 102, 103, 104, 105, 106]
-  return builder(permissions, '', 200)
+  return builder(permissions, '', '200')
 }
 
 Mock.mock(/\/user\/info/, 'get', info)

@@ -9,10 +9,10 @@ const login = options => {
   console.log('mock: body', body)
 
   if (!username.includes(body.username) || !password.includes(body.password)) {
-    return builder({ isLogin: true }, '账户或密码错误', 200)
+    return builder('', '账户或密码错误', '200', false)
   }
 
-  return builder({ token: '4291d7da9005377ec9aec4a71ea837f' }, '', 200)
+  return builder('4291d7da9005377ec9aec4a71ea837f', '', '200')
 }
 
 const logout = () => {

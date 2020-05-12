@@ -208,8 +208,6 @@ export default {
             loginParams[!state.loginType ? 'email' : 'username'] = form.username
             loginParams.password = md5(form.password)
 
-            console.log(loginParams)
-
             Login(loginParams)
               .then(res => this.loginSuccess(res))
               .catch(err => this.requestFailed(err))
