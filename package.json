@@ -12,7 +12,7 @@
   "dependencies": {
     "@antv/data-set": "^0.10.2",
     "@antv/g2plot": "^1.0.4",
-    "ant-design-vue": "^1.5.3",
+    "ant-design-vue": "^1.5.5",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "enquire.js": "^2.1.6",

@@ -20,7 +20,7 @@ const pendings = []
 service.interceptors.request.use(
   config => {
     // 过滤重复请求
-    clearPending(config)
+    setTimeout(clearPending, 0, config)
 
     // 获取本地token
     const token = Vue.ls.get(ACCESS_TOKEN)
@@ -53,7 +53,7 @@ service.interceptors.response.use(response => {
   const { data, code, config } = response
 
   // 在请求完成后，自动移出队列
-  clearPending(config)
+  setTimeout(clearPending, 0, config)
 
   if (successCodes.includes(code)) {
     return data
@@ -105,16 +105,15 @@ function clearPending(config, all) {
   for (let i = 0; i < pendings.length; i++) {
     const { url, cancel } = pendings[i]
 
-    // 在路由守卫中引用 跳转时取消当前所有pending中的请求
     if (all) {
+      // 在路由守卫中引用 跳转时取消当前所有pending中的请求
       cancel(`${url} 请求被取消`)
-      break
-    }
-
-    if (url === getUrl(config)) {
-      cancel(`${config.url} 重复请求被取消！`)
-      pendings.splice(i, 1)
-      break
+    } else {
+      if (url === getUrl(config)) {
+        cancel(`${config.url} 重复请求被取消！`)
+        pendings.splice(i, 1)
+        return
+      }
     }
   }
 }

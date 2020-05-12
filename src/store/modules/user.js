@@ -65,9 +65,9 @@ const user = {
           .then(async response => {
             const result = response.result
 
-            console.log(result)
-
             if (!result.id) reject('获取用户信息失败，请重试！')
+            console.log('用户信息:', result)
+
             try {
               await dispatch('GetPermissions')
             } catch (error) {
@@ -92,8 +92,10 @@ const user = {
         getPermission()
           .then(response => {
             const permissions = response.result
-            console.log('user permissions:', permissions)
+
             commit('SET_PERMISSIONS', permissions)
+            console.log('用户权限:', permissions)
+
             resolve()
           })
           .catch(error => {
