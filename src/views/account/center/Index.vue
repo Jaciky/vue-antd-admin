@@ -143,7 +143,7 @@ export default {
 
     getTeams() {
       getTeams().then(res => {
-        this.teams = res.result
+        this.teams = res.data
         this.teamSpinning = false
       })
     },
