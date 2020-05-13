@@ -1,21 +1,11 @@
-const responseBody = {
-  message: '',
-  data: null,
-  code: 0,
-  success: true
-}
-
-export const builder = (data, message, code = 0, success = true, headers = {}) => {
-  responseBody.data = data
-  responseBody.message = message
-  responseBody.code = code
-
-  if (headers !== null && typeof headers === 'object' && Object.keys(headers).length > 0) {
-    responseBody.headers = headers
+export const builder = (data, message = '', code = '200', success = true, headers = {}) => {
+  return {
+    data,
+    message,
+    code,
+    headers,
+    success
   }
-
-  responseBody.success = success
-  return responseBody
 }
 
 export const getQueryParameters = options => {

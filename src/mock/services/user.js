@@ -1,8 +1,7 @@
 import Mock from 'mockjs2'
 import { builder } from '../util'
 
-const info = options => {
-  console.log('options', options)
+const info = () => {
   const userInfo = {
     id: '4291d7da9005377ec9aec4a71ea837f',
     name: '天野远子',
@@ -20,13 +19,12 @@ const info = options => {
     roleId: 'admin',
     role: {}
   }
-  return builder(userInfo, '', '200')
+  return builder(userInfo, '获取用户信息成功')
 }
 
-const permissions = options => {
-  console.log('options', options)
+const permissions = () => {
   const permissions = [100, 101, 102, 103, 104, 105, 106]
-  return builder(permissions, '', '200')
+  return builder(permissions, '获取用户权限成功')
 }
 
 Mock.mock(/\/user\/info/, 'get', info)

@@ -47,7 +47,6 @@ const user = {
       return new Promise((resolve, reject) => {
         login(userInfo)
           .then(response => {
-            console.log(response)
             const token = response.data
             Vue.ls.set(ACCESS_TOKEN, token, config.tokenExpires)
             commit('SET_TOKEN', token)
@@ -64,7 +63,7 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo()
           .then(async response => {
-            const result = response.result
+            const result = response.data
 
             if (!result.id) reject('获取用户信息失败，请重试！')
             console.log('用户信息:', result)
@@ -92,7 +91,7 @@ const user = {
       return new Promise((resolve, reject) => {
         getPermission()
           .then(response => {
-            const permissions = response.result
+            const permissions = response.data
 
             commit('SET_PERMISSIONS', permissions)
             console.log('用户权限:', permissions)

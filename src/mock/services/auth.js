@@ -12,11 +12,11 @@ const login = options => {
     return builder('', '账户或密码错误', '200', false)
   }
 
-  return builder('4291d7da9005377ec9aec4a71ea837f', '', '200')
+  return builder('4291d7da9005377ec9aec4a71ea837f')
 }
 
 const logout = () => {
-  return builder({}, '[测试接口] 注销成功')
+  return builder({}, '注销成功')
 }
 
 const smsCaptcha = () => {
