@@ -69,6 +69,9 @@ html{--antd-wave-shadow-color:#1890ff}
 @-webkit-keyframes waveEffect{to{-webkit-box-shadow:0 0 0 #1890ff;box-shadow:0 0 0 #1890ff}}
 @keyframes waveEffect{to{-webkit-box-shadow:0 0 0 #1890ff;box-shadow:0 0 0 #1890ff}}
 .layout.ant-layout .header .user-wrapper .action .avatar,.layout.ant-layout .top-nav-header-index .user-wrapper .action .avatar{color:#1890ff}
+.project-list .card-title a[data-v-2bdd78b5]:hover{color:#1890ff}
+.project-list .project-item a[data-v-2bdd78b5]:hover{color:#1890ff}
+.members a:hover span[data-v-2bdd78b5]{color:#1890ff}
 a[data-v-752e912a]{color:#1890ff}
 a[data-v-752e912a]:hover{color:#40a9ff}
 a[data-v-752e912a]:active{color:#096dd9}
@@ -89,11 +92,8 @@ html[data-v-30663517]{--antd-wave-shadow-color:#1890ff}
 @keyframes waveEffect-data-v-30663517{to{-webkit-box-shadow:0 0 0 #1890ff;box-shadow:0 0 0 #1890ff}}
 .card-list[data-v-30663517] .ant-card-body:hover .ant-card-meta-title>a{color:#1890ff}
 .ant-card-actions li a[data-v-30663517]:hover{color:#1890ff}
-.project-list .card-title a[data-v-b24d9cce]:hover{color:#1890ff}
-.project-list .project-item a[data-v-b24d9cce]:hover{color:#1890ff}
-.members a:hover span[data-v-b24d9cce]{color:#1890ff}
-.page-header-wrapper-grid-content-main .account-center-team .members a:hover span[data-v-13b090be]{color:#1890ff}
 .antd-pro-pages-forms-style-errorListItem[data-v-16b1459a]:hover{background:#e6f7ff}
+.page-header-wrapper-grid-content-main .account-center-team .members a:hover span[data-v-003be1de]{color:#1890ff}
 .ant-input:focus,.ant-input:hover{border-color:#40a9ff}
 .ant-input:focus{-webkit-box-shadow:0 0 0 2px rgba(24,144,255,.2);box-shadow:0 0 0 2px rgba(24,144,255,.2)}
 .ant-input-group-addon .ant-select-focused .ant-select-selection,.ant-input-group-addon .ant-select-open .ant-select-selection{color:#1890ff}
