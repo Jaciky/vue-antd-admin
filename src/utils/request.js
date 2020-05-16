@@ -55,7 +55,7 @@ service.interceptors.response.use(response => {
   console.log(response)
 
   // 在请求完成后，自动移出队列
-  setTimeout(clearPending, 0, config)
+  clearPending(config)
 
   if (successCodes.includes(code)) {
     return data
