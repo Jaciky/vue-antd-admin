@@ -194,13 +194,15 @@ export default {
 
       const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
       let validateNums = 0
+      let errmsg = ''
 
       this.$refs.form.validateField(validateFieldsKey, errorMessage => {
         ++validateNums
+        errorMessage && (errmsg = errorMessage)
 
         // 避免多次触发请求
         if (validateNums === validateFieldsKey.length) {
-          if (!errorMessage) {
+          if (!errmsg) {
             console.log('login form', form)
             const loginParams = { ...form }
             delete loginParams.username
@@ -267,7 +269,6 @@ export default {
       })
     },
     loginSuccess(res) {
-      console.log(res)
       // check res.homePage define, set $router.push name res.homePage
       // Why not enter onComplete
       /*
@@ -290,6 +291,7 @@ export default {
       this.isLoginError = false
     },
     requestFailed(err) {
+      console.log(err)
       this.isLoginError = true
       // this.$notification['error']({
       //   message: '错误',

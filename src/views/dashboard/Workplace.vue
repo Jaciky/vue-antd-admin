@@ -224,25 +224,25 @@ export default {
   methods: {
     getProjects() {
       getProjects().then(res => {
-        this.projects = res.result && res.result.data
+        this.projects = res.data?.data ?? []
         this.loading = false
       })
     },
     getActivity() {
       getActivity().then(res => {
-        this.activities = res.result
+        this.activities = res.data
       })
     },
     getTeams() {
       getTeams().then(res => {
-        this.teams = res.result
+        this.teams = res.data
       })
     },
     initRadar() {
       this.radarLoading = true
 
-      getRadar('/workplace/radar').then(res => {
-        const dv = new DataSet.View().source(res.result)
+      getRadar().then(res => {
+        const dv = new DataSet.View().source(res.data)
         dv.transform({
           type: 'fold',
           fields: ['个人', '团队', '部门'],

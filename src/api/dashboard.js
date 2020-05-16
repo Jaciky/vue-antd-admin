@@ -8,7 +8,8 @@ const api = {
   Teams: `${LOCAL_API_PREFIX}/workplace/teams`,
   Radar: `${LOCAL_API_PREFIX}/workplace/radar`,
   Projects: `${LOCAL_API_PREFIX}/list/search/projects`,
-  ServerList: `${LOCAL_API_PREFIX}/service`
+  ServerList: `${LOCAL_API_PREFIX}/service`,
+  article: `${LOCAL_API_PREFIX}/list/article`
 }
 
 export default api
@@ -38,5 +39,13 @@ export function getRadar() {
   return axios({
     url: api.Radar,
     method: 'get'
+  })
+}
+
+export function getArticle(params) {
+  return axios({
+    url: api.article,
+    method: 'get',
+    data: params
   })
 }

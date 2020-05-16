@@ -101,6 +101,7 @@
 <script>
 import moment from 'moment'
 import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
+import { getArticle } from '@/api/dashboard'
 import CardInfo from './components/CardInfo'
 const TagSelectOption = TagSelect.Option
 const AvatarListItem = AvatarList.AvatarItem
@@ -135,9 +136,9 @@ export default {
       console.log(`selected ${value}`)
     },
     getList() {
-      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
+      getArticle({ count: 8 }).then(res => {
         console.log('res', res)
-        this.data = res.result
+        this.data = res.data
         this.loading = false
       })
     }

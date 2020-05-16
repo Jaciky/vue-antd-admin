@@ -20,9 +20,8 @@ const pendings = []
 service.interceptors.request.use(
   config => {
     // 过滤重复请求
-    setTimeout(clearPending, 0, config)
+    clearPending(config)
 
-    console.log(config)
     // 获取本地token
     const token = Vue.ls.get(ACCESS_TOKEN)
 
@@ -46,21 +45,20 @@ service.interceptors.request.use(
  * 1、判定为成功的白名单code列表
  * 2、需重定向的code列表
  */
-const successCodes = [200]
+// const successCodes = [200]
 const ridrectCodes = ['600', '601', '605', '612', '614', '616']
 
 // response interceptor
 service.interceptors.response.use(response => {
-  const { data, code, config } = response
-  console.log(response)
+  const { data, config } = response
 
   // 在请求完成后，自动移出队列
-  clearPending(config)
+  setTimeout(clearPending, 0, config)
 
-  if (successCodes.includes(code)) {
+  if (data.success) {
     return data
   } else {
-    if (ridrectCodes.includes(code)) {
+    if (ridrectCodes.includes(data.code)) {
       const token = Vue.ls.get(ACCESS_TOKEN)
 
       token &&
