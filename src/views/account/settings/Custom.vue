@@ -3,7 +3,7 @@ import { colorList } from '@/components/SettingDrawer/settingConfig'
 import ASwitch from 'ant-design-vue/es/switch'
 import AList from 'ant-design-vue/es/list'
 import AListItem from 'ant-design-vue/es/list/Item'
-import { mixin } from '@/utils/mixin'
+import { mixin } from '@/mixins/app'
 
 const Meta = AListItem.Meta
 

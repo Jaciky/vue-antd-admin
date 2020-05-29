@@ -6,7 +6,6 @@
       :closable="false"
       :visible="visible"
       :drawer-style="{ position: 'absolute' }"
-      style="position: absolute;"
       @close="onClose"
     >
       <div class="setting-drawer-index-content">
@@ -15,9 +14,7 @@
 
           <div class="setting-drawer-index-blockChecbox">
             <a-tooltip>
-              <template slot="title">
-                暗色菜单风格
-              </template>
+              <template slot="title">暗色菜单风格</template>
               <div class="setting-drawer-index-item" @click="handleMenuTheme('dark')">
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/LCkqqYNmvBEbokSDscrm.svg" alt="dark" />
                 <div v-if="navTheme === 'dark'" class="setting-drawer-index-selectIcon">
@@ -27,9 +24,7 @@
             </a-tooltip>
 
             <a-tooltip>
-              <template slot="title">
-                亮色菜单风格
-              </template>
+              <template slot="title">亮色菜单风格</template>
               <div class="setting-drawer-index-item" @click="handleMenuTheme('light')">
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/jpRkZQMyYRryryPNtyIC.svg" alt="light" />
                 <div v-if="navTheme !== 'dark'" class="setting-drawer-index-selectIcon">
@@ -45,9 +40,7 @@
 
           <div style="height: 20px;">
             <a-tooltip v-for="(item, index) in colorList" :key="index" class="setting-drawer-theme-color-colorBlock">
-              <template slot="title">
-                {{ item.key }}
-              </template>
+              <template slot="title">{{ item.key }}</template>
               <a-tag :color="item.color" @click="changeColor(item.color)">
                 <a-icon v-if="item.color === primaryColor" type="check"></a-icon>
               </a-tag>
@@ -61,9 +54,7 @@
 
           <div class="setting-drawer-index-blockChecbox">
             <a-tooltip>
-              <template slot="title">
-                侧边栏导航
-              </template>
+              <template slot="title">侧边栏导航</template>
               <div class="setting-drawer-index-item" @click="handleLayout('sidemenu')">
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/JopDzEhOqwOjeNTXkoje.svg" alt="sidemenu" />
                 <div v-if="layoutMode === 'sidemenu'" class="setting-drawer-index-selectIcon">
@@ -73,9 +64,7 @@
             </a-tooltip>
 
             <a-tooltip>
-              <template slot="title">
-                顶部栏导航
-              </template>
+              <template slot="title">顶部栏导航</template>
               <div class="setting-drawer-index-item" @click="handleLayout('topmenu')">
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/KDNDBbriJhLwuqMoxcAr.svg" alt="topmenu" />
                 <div v-if="layoutMode !== 'sidemenu'" class="setting-drawer-index-selectIcon">
@@ -88,9 +77,7 @@
             <a-list :split="false">
               <a-list-item>
                 <a-tooltip slot="actions">
-                  <template slot="title">
-                    该设定仅 [顶部栏导航] 时有效
-                  </template>
+                  <template slot="title">该设定仅 [顶部栏导航] 时有效</template>
                   <a-select
                     size="small"
                     style="width: 80px;"
@@ -170,8 +157,11 @@
           <a-alert type="warning" :style="{ marginTop: '24px' }">
             <span slot="message">
               配置栏只在开发环境用于预览，生产环境不会展现，请手动修改配置文件。修改配置文件后，需要清空本地缓存和LocalStorage
-              <a href="https://github.com/Jaciky/vue-antd-admin/blob/master/src/config/index.js" target="_blank">
-                src/config/index.js
+              <a
+                href="https://jaciky.coding.net/p/vue-antd-admin-template/d/vue-antd-admin-template/git/tree/master/src/config/settings.js"
+                target="_blank"
+              >
+                src/config/settings.js
               </a>
             </span>
           </a-alert>
@@ -188,9 +178,9 @@
 <script>
 import { DetailList } from '@/components'
 import SettingItem from './SettingItem'
-import config from '@/config'
+import config from '@/config/settings'
 import { updateTheme, updateColorWeak, colorList } from './settingConfig'
-import { mixin, mixinDevice } from '@/utils/mixin'
+import { mixin, mixinDevice } from '@/mixins/app'
 
 export default {
   components: {
@@ -233,9 +223,9 @@ export default {
     },
     doCopy() {
       // get current settings from mixin or this.$store.state.app, pay attention to the property name
-      const text = `export default {
+      const text = `
         primaryColor: '${this.primaryColor}', // primary color of ant design
-        navTheme: '${this.navTheme}', // theme for nav menu
+        navTheme: '${this.navTheme}', // theme for nav menu: dark or light
         layout: '${this.layoutMode}', // nav menu position: sidemenu or topmenu
         contentWidth: '${this.contentWidth}', // layout of content: Fluid or Fixed, only works when layout is topmenu
         fixedHeader: ${this.fixedHeader}, // sticky header
@@ -243,14 +233,7 @@ export default {
         autoHideHeader: ${this.autoHideHeader}, //  auto hide header
         colorWeak: ${this.colorWeak},
         multiTab: ${this.multiTab},
-        production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
-        // vue-ls options
-        storageOptions: {
-          namespace: 'pro__',
-          name: 'ls',
-          storage: 'local',
-        }
-      }`
+      `
       this.$copyText(text)
         .then(message => {
           console.log('copy', message)
@@ -356,6 +339,7 @@ export default {
   text-align: center;
   font-size: 16px;
   border-radius: 4px 0 0 4px;
+  opacity: 0.6;
 
   i {
     color: rgb(255, 255, 255);

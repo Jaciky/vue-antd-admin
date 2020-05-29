@@ -1,3 +1,24 @@
+// lodash api
+import deboun from 'lodash/debounce'
+export { default as cloneDeep } from 'lodash/cloneDeep'
+export { default as isNumber } from 'lodash/isNumber'
+export { default as isEqual } from 'lodash/isEqual'
+export { default as forIn } from 'lodash/forIn'
+export { default as pick } from 'lodash/pick'
+export { default as pickBy } from 'lodash/pickBy'
+export { default as get } from 'lodash/get'
+export { default as find } from 'lodash/find'
+export { default as uniq } from 'lodash/uniq'
+export { default as sortBy } from 'lodash/sortBy'
+export { default as sumBy } from 'lodash/sumBy'
+export { default as random } from 'lodash/random'
+
+// 节流
+export function debounce(f, t = 1000, immediate = true) {
+  if (typeof f !== 'function') return
+  return deboun(f, t, { leading: immediate, trailing: !immediate })
+}
+
 export function timeFix() {
   const time = new Date()
   const hour = time.getHours()

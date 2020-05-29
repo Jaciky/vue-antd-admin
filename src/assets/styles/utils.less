@@ -1,12 +1,16 @@
 //清除浮动
 .clearfix() {
-  &:before,
-  &:after {
-    content: ' ';
+  zoom: 1;
+  &::before,
+  &::after {
     display: table;
+    content: ' ';
   }
-  &:after {
+  &::after {
     clear: both;
+    height: 0;
+    font-size: 0;
+    visibility: hidden;
   }
 }
 
@@ -76,12 +80,31 @@
 }
 
 // 多行行文本溢出显示...  元素必须是 block 或 inline-block 级。
-.mult_line_ellipsis(@line: 2) {
+.text-overflow-multi(@line: 2, @bg: #fff) {
+  position: relative;
+  max-height: @line * 1.5em;
+  margin-right: -1em;
+  padding-right: 1em;
   overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: @line;
-  -webkit-box-orient: vertical;
+  line-height: 1.5em;
+  text-align: justify;
+  &::before {
+    position: absolute;
+    right: 14px;
+    bottom: 0;
+    padding: 0 1px;
+    background: @bg;
+    content: '...';
+  }
+  &::after {
+    position: absolute;
+    right: 14px;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: white;
+    content: '';
+  }
 }
 
 //正方形
@@ -89,14 +112,12 @@
   .size(@size, @size);
 }
 
-// 绘制三角
-.triangle(@width, @height, @color, @direction) {
-}
 
-//公共flex布局
-.flex(@justify:right,@align:center,@flow:row) {
+// flex布局
+.flex(@justify: right, @align: center, @flow: row) {
   display: flex;
   justify-content: @justify;
   align-items: @align;
   flex-flow: @flow;
 }
+

@@ -1,4 +1,4 @@
-import { cloneDeep } from '@/core/global'
+import { cloneDeep } from '@/utils/util'
 
 export function convertRoutes(nodes) {
   if (!nodes) return null

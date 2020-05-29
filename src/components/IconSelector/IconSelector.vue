@@ -66,8 +66,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../index.less';
-
 ul {
   list-style: none;
   padding: 0;

@@ -48,8 +48,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../index.less';
-
 .antd-pro-components-article-list-content-index-listContent {
   .description {
     max-width: 720px;

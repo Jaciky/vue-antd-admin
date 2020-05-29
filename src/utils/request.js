@@ -1,12 +1,12 @@
-import Vue from 'vue'
 import axios from 'axios'
 import store from '@/store'
+import storage from 'store'
 import notification from 'ant-design-vue/es/notification'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
+  baseURL: process.env.VUE_APP_BASE_API, // api base_url
   timeout: 6 * 1000 // 请求超时时间
 })
 
@@ -19,16 +19,16 @@ const pendings = []
 // request interceptor
 service.interceptors.request.use(
   config => {
-    // 过滤重复请求
+    // 取消重复请求：先前的请求
     clearPending(config)
 
     // 获取本地token
-    const token = Vue.ls.get(ACCESS_TOKEN)
+    const token = storage.get(ACCESS_TOKEN)
 
     // 设置请求token
     token && (config.headers['Access-Token'] = token)
 
-    // 取消重复请求
+    // 获取取消请求方法
     config.cancelToken = new axios.CancelToken(cancel => {
       pendings.push({ url: getUrl(config), cancel })
     })
@@ -59,7 +59,7 @@ service.interceptors.response.use(response => {
     return data
   } else {
     if (ridrectCodes.includes(data.code)) {
-      const token = Vue.ls.get(ACCESS_TOKEN)
+      const token = storage.get(ACCESS_TOKEN)
 
       token &&
         store.dispatch('Logout').then(() => {
@@ -80,15 +80,15 @@ service.interceptors.response.use(response => {
 
 // error回调
 function httpErrorHandler(error) {
-  const { config, response } = error
-
-  // 在请求完成后，自动移出队列
-  setTimeout(clearPending, 0, config)
-
   if (axios.isCancel(error)) {
     console.log(error.message)
     return Promise.reject()
   }
+
+  const { config, response } = error
+
+  // 在请求完成后，自动移出队列
+  setTimeout(clearPending, 0, config)
 
   notification.error({
     message: 'Forbidden',
@@ -101,15 +101,18 @@ function httpErrorHandler(error) {
 /**
  * 清除请求队列
  */
-function clearPending(config, all) {
-  for (let i = 0; i < pendings.length; i++) {
-    const { url, cancel } = pendings[i]
+function clearPending(config, allCancel) {
+  if (allCancel) {
+    // 在全局路由守卫中引用 跳转前取消当前所有pending中的请求
+    pendings.forEach(i => i.cancel(`${i.url} 请求被取消`))
+  } else {
+    const len = pendings.length
+    const curUrl = len && getUrl(config)
 
-    if (all) {
-      // 在路由守卫中引用 跳转时取消当前所有pending中的请求
-      cancel(`${url} 请求被取消`)
-    } else {
-      if (url === getUrl(config)) {
+    for (let i = 0; i < len; i++) {
+      const { url, cancel } = pendings[i]
+
+      if (url === curUrl) {
         cancel(`${config.url} 重复请求被取消！`)
         pendings.splice(i, 1)
         return
@@ -118,9 +121,12 @@ function clearPending(config, all) {
   }
 }
 
-// url + method 相同 被视为重复请求
-function getUrl({ url, method }) {
-  return `${url}_${method}`
+// url + method + params 相同 被视为重复请求
+function getUrl({ url, method, data, params }) {
+  const query = data || params || {}
+  const queryStr = JSON.stringify(query)
+
+  return `${url}_${method}_${queryStr}`
 }
 
 export { clearPending }

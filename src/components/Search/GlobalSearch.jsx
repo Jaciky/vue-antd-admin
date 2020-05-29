@@ -1,5 +1,4 @@
 import { Select } from 'ant-design-vue'
-import './index.less'
 
 const GlobalSearch = {
   name: 'GlobalSearch',

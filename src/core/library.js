@@ -1,27 +1,30 @@
 import Vue from 'vue'
-import VueStorage from 'vue-ls'
-import config from '@/config'
 
 // base library
-import '@/core/lazy_lib/components_use'
+import '@/core/antd'
 import Viser from 'viser-vue'
 
 // ext library
 import VueClipboard from 'vue-clipboard2'
 import VueCropper from 'vue-cropper'
+import Dialog from '@/components/Dialog'
 import MultiTab from '@/components/MultiTab'
 import PageLoading from '@/components/PageLoading'
-// import PermissionHelper from '@/utils/helper/permission'
-import './directives/action'
+
+import directives from './directives' // global directives
+import * as filters from '@/utils/filter' // global filter
 
 VueClipboard.config.autoSetContainer = true
 
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
+Vue.use(directives)
+
 Vue.use(Viser)
+Vue.use(Dialog) // this.$dialog func
 Vue.use(MultiTab)
 Vue.use(PageLoading)
-Vue.use(VueStorage, config.storageOptions)
 Vue.use(VueClipboard)
-// Vue.use(PermissionHelper)
 Vue.use(VueCropper)
-
-process.env.NODE_ENV !== 'production' && console.warn('[antd-pro] NOTICE: Antd use lazy-load.')

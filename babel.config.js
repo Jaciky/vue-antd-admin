@@ -16,8 +16,11 @@ plugins.push([
   }
 ])
 
-// can use optional-chaining: obj?.xxx
+// optional-chaining: obj?.xxx
 plugins.push('@babel/plugin-proposal-optional-chaining')
+
+// 可忽略对异常的捕获
+plugins.push('@babel/plugin-proposal-optional-catch-binding')
 
 module.exports = {
   presets: [

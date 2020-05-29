@@ -4,6 +4,8 @@
  * 减少了编译支持库包大小
  *
  * 当需要更多组件依赖时，在该文件加入即可
+ *
+ * 注意：需要同时修改 babel.config.js 文件下的配置项
  */
 import Vue from 'vue'
 import {
@@ -46,9 +48,11 @@ import {
   Skeleton,
   Popconfirm,
   message,
-  notification
+  notification,
+  collapse,
+  rate,
+  Cascader
 } from 'ant-design-vue'
-// import VueCropper from 'vue-cropper'
 
 Vue.use(ConfigProvider)
 Vue.use(Layout)
@@ -88,9 +92,12 @@ Vue.use(Upload)
 Vue.use(Progress)
 Vue.use(Skeleton)
 Vue.use(Popconfirm)
-// Vue.use(VueCropper)
 Vue.use(notification)
+Vue.use(collapse)
+Vue.use(rate)
+Vue.use(Cascader)
 
+// Add to this.$xxx
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
 Vue.prototype.$notification = notification

@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import { mixinDevice } from '@/utils/mixin'
+import { mixinDevice } from '@/mixins/app'
 import { PageView } from '@/layouts'
 import DetailList from '@/components/tools/DetailList'
 

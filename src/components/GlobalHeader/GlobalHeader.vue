@@ -16,7 +16,12 @@
             :type="collapsed ? 'menu-fold' : 'menu-unfold'"
             @click="toggle"
           />
-          <a-icon v-else class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'" @click="toggle" />
+          <a-icon
+            v-else
+            class="trigger"
+            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+            @click="toggle"
+          />
           <user-menu></user-menu>
         </div>
         <div v-else :class="['top-nav-header-index', theme]">
@@ -24,7 +29,12 @@
             <div class="header-index-left">
               <logo class="top-nav-header" :show-title="device !== 'mobile'" />
               <s-menu v-if="device !== 'mobile'" mode="horizontal" :menu="menus" :theme="theme" />
-              <a-icon v-else class="trigger" :type="collapsed ? 'menu-fold' : 'menu-unfold'" @click="toggle" />
+              <a-icon
+                v-else
+                class="trigger"
+                :type="collapsed ? 'menu-fold' : 'menu-unfold'"
+                @click="toggle"
+              />
             </div>
             <user-menu class="header-index-right"></user-menu>
           </div>
@@ -38,7 +48,7 @@
 import UserMenu from '../tools/UserMenu'
 import SMenu from '../Menu/'
 import Logo from '../tools/Logo'
-import { mixin } from '@/utils/mixin'
+import { mixin } from '@/mixins/app'
 
 export default {
   name: 'GlobalHeader',
@@ -116,8 +126,6 @@ export default {
 </script>
 
 <style lang="less">
-@import '../index.less';
-
 .header-animat {
   position: relative;
   z-index: @ant-global-header-zindex;

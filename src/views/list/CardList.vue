@@ -73,8 +73,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~@/components/index.less';
-
 .card-list {
   /deep/ .ant-card-body:hover {
     .ant-card-meta-title > a {

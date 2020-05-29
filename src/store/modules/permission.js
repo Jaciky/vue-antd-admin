@@ -1,4 +1,4 @@
-import { asyncRouterMap, constantRouterMap } from '@/router/router.config'
+import { asyncRouterMap, constantRouterMap } from '@/router/config'
 
 /**
  * Use meta.permission to determine if the current user has permission

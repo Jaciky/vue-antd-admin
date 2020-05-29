@@ -76,7 +76,7 @@
 
 <script>
 import { getRoleList, getPermissions } from '@/api/manage'
-import { mixinDevice } from '@/utils/mixin'
+import { mixinDevice } from '@/mixins/app'
 // import { actionToObject } from '@/utils/permissions'
 
 export default {

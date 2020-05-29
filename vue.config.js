@@ -1,11 +1,8 @@
-'use strict'
-const path = require('path')
-const webpack = require('webpack')
-const createThemeColorReplacerPlugin = require('./config/plugin.config')
+const { IgnorePlugin } = require('webpack')
+const dynamicThemePlugin = require('./src/plugins/dynamicThemePlugin')
 
-function resolve(dir) {
-  return path.join(__dirname, dir)
-}
+// 拼接路径
+const resolve = dir => require('path').join(__dirname, dir)
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -24,8 +21,8 @@ const assetsCDN = {
   // https://unpkg.com/browse/vue@2.6.11/
   js: [
     '//cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
-    '//cdn.jsdelivr.net/npm/vue-router@3.1.6/dist/vue-router.min.js',
-    '//cdn.jsdelivr.net/npm/vuex@3.2.0/dist/vuex.min.js',
+    '//cdn.jsdelivr.net/npm/vue-router@3.3.1/dist/vue-router.min.js',
+    '//cdn.jsdelivr.net/npm/vuex@3.4.0/dist/vuex.min.js',
     '//cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js'
   ]
 }
@@ -37,8 +34,13 @@ const vueConfig = {
     // webpack plugins
     plugins: [
       // Ignore all locale files of moment.js
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+      new IgnorePlugin(/^\.\/locale$/, /moment$/)
     ],
+    resolve: {
+      alias: {
+        '@': resolve('src')
+      }
+    },
     // if prod, add externals
     externals: isProd ? assetsCDN.externals : {}
   },
@@ -82,8 +84,6 @@ const vueConfig = {
       return args
     })
 
-    config.resolve.alias.set('@', resolve('src'))
-
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
     svgRule
@@ -120,7 +120,7 @@ const vueConfig = {
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
-      patterns: [resolve(__dirname, './src/assets/styles/variables.less')]
+      patterns: [resolve('src/assets/styles/variables.less'), resolve('src/assets/styles/utils.less')]
     }
   },
 
@@ -154,7 +154,7 @@ const vueConfig = {
 if (process.env.VUE_APP_PREVIEW === 'true') {
   console.log('VUE_APP_PREVIEW', true)
   // add `ThemeColorReplacer` plugin to webpack plugins
-  vueConfig.configureWebpack.plugins.push(createThemeColorReplacerPlugin())
+  vueConfig.configureWebpack.plugins.push(dynamicThemePlugin())
 }
 
 module.exports = vueConfig

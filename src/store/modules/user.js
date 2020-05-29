@@ -1,8 +1,8 @@
-import Vue from 'vue'
+import storage from 'store'
 import { login, getInfo, logout, getPermission } from '@/api/user'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
-import config from '@/config'
+import config from '@/config/settings'
 
 const user = {
   state: {
@@ -48,7 +48,7 @@ const user = {
         login(userInfo)
           .then(response => {
             const token = response.data
-            Vue.ls.set(ACCESS_TOKEN, token, config.tokenExpires)
+            storage.set(ACCESS_TOKEN, token, config.tokenExpires)
             commit('SET_TOKEN', token)
             resolve()
           })
@@ -65,14 +65,15 @@ const user = {
           .then(async response => {
             const result = response.data
 
-            if (!result.id) reject('获取用户信息失败，请重试！')
+            !result?.id && reject('获取用户信息失败，请重试！')
             console.log('用户信息:', result)
 
             try {
               await dispatch('GetPermissions')
-            } catch (error) {
+            } catch {
               reject('获取用户权限失败，请重试！')
             }
+
             commit('SET_INFO', result)
             commit('SET_NAME', { name: result.name, welcome: welcome() })
             commit('SET_USERID', result.id)
@@ -118,7 +119,7 @@ const user = {
             commit('SET_TOKEN', '')
             commit('SET_ROLES', [])
             commit('SET_USERID', '')
-            Vue.ls.remove(ACCESS_TOKEN)
+            storage.remove(ACCESS_TOKEN)
           })
       })
     }

@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { mixinDevice } from '@/utils/mixin.js'
+import { mixinDevice } from '@/mixins/app'
 import { getSmsCaptcha } from '@/api/user'
 
 const levelNames = {

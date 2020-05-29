@@ -50,7 +50,7 @@
 
 <script>
 import { PageView, RouteView } from '@/layouts'
-import { mixinDevice } from '@/utils/mixin.js'
+import { mixinDevice } from '@/mixins/app.js'
 
 export default {
   components: {

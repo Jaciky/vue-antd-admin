@@ -58,11 +58,11 @@
 
       <!-- layout footer -->
       <a-layout-footer>
-        <global-footer />
+        <!-- <global-footer /> -->
       </a-layout-footer>
 
       <!-- Setting Drawer (show in development mode) -->
-      <setting-drawer v-if="!production"></setting-drawer>
+      <setting-drawer v-if="!production && showSetting"></setting-drawer>
     </a-layout>
   </a-layout>
 </template>
@@ -70,8 +70,8 @@
 <script>
 import { triggerWindowResizeEvent } from '@/utils/util'
 import { mapState, mapActions } from 'vuex'
-import { mixin, mixinDevice } from '@/utils/mixin'
-import config from '@/config'
+import { mixin, mixinDevice } from '@/mixins/app'
+import config from '@/config/settings'
 
 import RouteView from './RouteView'
 import SideMenu from '@/components/Menu/SideMenu'
@@ -94,6 +94,7 @@ export default {
   data() {
     return {
       production: config.production,
+      showSetting: config.showSetting,
       collapsed: false,
       menus: []
     }
@@ -120,7 +121,7 @@ export default {
   },
   created() {
     const routes = convertRoutes(this.mainMenu.find(item => item.path === '/'))
-    this.menus = (routes && routes.children) || []
+    this.menus = routes?.children ?? []
     this.collapsed = !this.sidebarOpened
   },
   mounted() {

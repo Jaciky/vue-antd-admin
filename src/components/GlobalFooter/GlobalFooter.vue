@@ -1,10 +1,8 @@
 <template>
   <div class="footer">
     <div class="links">
-      <a href="https://jaciky.github.io/vue-antd-admin-site/" target="_blank">首页</a>
-      <a href="https://github.com/Jaciky/vue-antd-admin" target="_blank">
-        <a-icon type="github" />
-      </a>
+      <a href="#" target="_blank">首页</a>
+      <a href="https://jaciky.coding.net/p/vue-antd-admin-template/d/vue-antd-admin-template/git" target="_blank">代码仓库</a>
       <a href="https://ant.design/">Ant Design</a>
       <a href="https://pro.loacg.com/">Antd Pro</a>
     </div>

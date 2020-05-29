@@ -9,7 +9,7 @@
 
 <script>
 import LogoSvg from '@/assets/logo.svg?inline'
-import config from '@/config'
+import config from '@/config/settings'
 
 export default {
   name: 'Logo',
